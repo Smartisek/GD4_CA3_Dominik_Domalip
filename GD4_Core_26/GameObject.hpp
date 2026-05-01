@@ -24,7 +24,7 @@ public:
 	virtual uint32_t GetAllStateMask() const { return 0; }
 
 	//return whether to keep processing collision
-	//virtual bool HandleCollisionWithCat(RoboCat* inCat) { (void)inCat; return true; }
+	virtual bool HandleCollisionWithTank(Tank* inTank) { (void)inTank; return true; }
 
 	virtual void Update();
 
