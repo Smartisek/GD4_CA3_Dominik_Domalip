@@ -11,9 +11,6 @@
 *.sln.docstates
 *.env
 
-*.vcxproj
-*.vcxproj.*
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -416,7 +413,7 @@ FodyWeavers.xsd
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
-*.vcxproj
+
 # Local History for Visual Studio Code
 .history/
 
