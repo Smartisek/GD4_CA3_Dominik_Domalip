@@ -173,7 +173,7 @@ struct GetRequiredBits
 	enum { Value = GetRequiredBitsHelper< tValue, 0 >::Value };
 };
 
-namespace RoboMath
+namespace Math
 {
 	const float PI = 3.1415926535f;
 	float GetRandomFloat();
@@ -188,6 +188,11 @@ namespace RoboMath
 	inline float ToDegrees(float inRadians)
 	{
 		return inRadians * 180.0f / PI;
+	}
+
+	inline float ToRadians(float inDegrees)
+	{
+		return (inDegrees / 180.0f) * PI;
 	}
 }
 

@@ -129,6 +129,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectRegistry.cpp" />
+    <ClCompile Include="InputState.cpp" />
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="MemoryBitStream.cpp" />
     <ClCompile Include="MemoryStream.cpp" />
     <ClCompile Include="player.cpp" />
@@ -138,12 +143,17 @@
     <ClCompile Include="SocketUtil.cpp" />
     <ClCompile Include="SocketWrapperPCH.cpp" />
     <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="Tank.cpp" />
     <ClCompile Include="UDPSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="ByteSwap.hpp" />
     <ClInclude Include="choice.hpp" />
     <ClInclude Include="constants.hpp" />
+    <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="GameObjectRegistry.hpp" />
+    <ClInclude Include="InputState.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="MemoryBitStream.hpp" />
     <ClInclude Include="MemoryStream.hpp" />
@@ -155,6 +165,7 @@
     <ClInclude Include="SocketWrapperPCH.hpp" />
     <ClInclude Include="SocketWrapperShared.hpp" />
     <ClInclude Include="StringUtils.hpp" />
+    <ClInclude Include="Tank.hpp" />
     <ClInclude Include="UDPSocket.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

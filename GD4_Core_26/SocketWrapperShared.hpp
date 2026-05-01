@@ -57,6 +57,12 @@ using std::unordered_set;
 #include "MemoryStream.hpp"
 #include "MemoryBitStream.hpp"
 #include "player.hpp"
+#include "GameObject.hpp"
+#include "Tank.hpp"
+#include "InputState.hpp"
+#include "Bullet.hpp"
+#include "GameObjectRegistry.hpp"
+
 
 
 
