@@ -1,5 +1,3 @@
-#include "SocketWrapperClientPCH.hpp"
-
 class Client
 {
 public:

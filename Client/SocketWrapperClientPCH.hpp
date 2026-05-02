@@ -1,2 +1,8 @@
-#include "../GD4_Core_26/SocketWrapperShared.hpp"
+#include "SocketWrapperShared.hpp"
 
+#include "Client.hpp"
+
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"

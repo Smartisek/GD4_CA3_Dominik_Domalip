@@ -51,6 +51,10 @@ class GameObject;
 class Tank;
 class Bullet;
 
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 #include "StringUtils.hpp"
 #include "SocketAddress.hpp"
@@ -77,6 +81,9 @@ class Bullet;
 #include "TransmissionData.hpp"
 
 
+//client
+#include "Client.hpp"
+
 #include "choice.hpp"
 #include "constants.hpp"
 
@@ -85,7 +92,8 @@ class Bullet;
 #include "Move.hpp"
 #include "WeightedTimedMovingAverage.hpp"
 #include "NetworkManager.hpp"
-
+#include "Engine.hpp"
+#include "ScoreBoardManager.hpp"
 
 #include <iostream>
 #include <sstream>

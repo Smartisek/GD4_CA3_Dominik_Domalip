@@ -107,6 +107,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../SFML-2.6.2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +125,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../SFML-2.6.2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +136,7 @@
     <ClCompile Include="AckRange.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="DeliveryNotificationManager.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectRegistry.cpp" />
     <ClCompile Include="InFlightPacket.cpp" />
@@ -145,12 +148,15 @@
     <ClCompile Include="MoveList.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="ScoreBoardManager.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="SocketAddressFactory.cpp" />
     <ClCompile Include="SocketUtil.cpp" />
-    <ClCompile Include="SocketWrapperClientPCH.cpp" />
-    <ClCompile Include="SocketWrapperPCH.cpp" />
+    <ClCompile Include="SocketWrapperPCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Timing.cpp" />
@@ -164,6 +170,7 @@
     <ClInclude Include="choice.hpp" />
     <ClInclude Include="constants.hpp" />
     <ClInclude Include="DeliveryNotificationManager.hpp" />
+    <ClInclude Include="Engine.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="GameObjectRegistry.hpp" />
     <ClInclude Include="InFlightPacket.hpp" />
@@ -176,11 +183,11 @@
     <ClInclude Include="NetworkManager.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="ReplicationCommand.hpp" />
+    <ClInclude Include="ScoreBoardManager.hpp" />
     <ClInclude Include="Server.hpp" />
     <ClInclude Include="SocketAddress.hpp" />
     <ClInclude Include="SocketAddressFactory.hpp" />
     <ClInclude Include="SocketUtil.hpp" />
-    <ClInclude Include="SocketWrapperClientPCH.hpp" />
     <ClInclude Include="SocketWrapperPCH.hpp" />
     <ClInclude Include="SocketWrapperShared.hpp" />
     <ClInclude Include="StringUtils.hpp" />
