@@ -1,6 +1,6 @@
 #pragma once
 
-class Tank : public GameObject
+class Tank : public GameObject, public std::enable_shared_from_this<Tank>
 {
 public: 
 	CLASS_IDENTIFICATION('TANK', GameObject)

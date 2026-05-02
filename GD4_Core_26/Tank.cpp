@@ -74,7 +74,7 @@ void Tank::ProcessCollisions()
 	for (auto goIt = World::sInstance->GetGameObjects().begin(), end = World::sInstance->GetGameObjects().end(); goIt != end; ++goIt)
 	{
 		GameObject* target = goIt->get();
-		
+
 		if (target != this && !target->DoesWantToDie())
 		{
 			Vector3 targetLocation = target->GetLocation();
@@ -119,8 +119,180 @@ void Tank::ProcessCollisions()
 							mVelocity -= impulse * 2.f;
 							mVelocity *= mWallRestitution;
 						}
+					}
 				}
 			}
 		}
 	}
+}
+
+void Tank::ProcessCollisionsWithScreenWalls()
+{
+	Vector3 location = GetLocation();
+
+	float x = location.mX;
+	float y = location.mY;
+
+	float vx = mVelocity.mX;
+	float vy = mVelocity.mY;
+
+	float radius = GetCollisionRadius();
+
+	//top and bottom walls based on top variables in this file 
+	if ((y + radius) >= WORLD_HEIGHT && vy > 0)
+	{
+		mVelocity.mY = -vy * mWallRestitution;
+		location.mY = WORLD_HEIGHT - radius;
+		SetLocation(location);
+	}
+	else if (y - radius <= 0 && vy < 0)
+	{
+		mVelocity.mY = -vy * mWallRestitution;
+		location.mY = radius;
+		SetLocation(location);
+	}
+
+	//left and right walls 
+	if ((x + radius) >= WORLD_WIDTH && vx > 0)
+	{
+		mVelocity.mX = -vx * mWallRestitution;
+		location.mX = WORLD_WIDTH - radius;
+		SetLocation(location);
+	}
+	else if (x - radius <= 0 && vx < 0)
+	{
+		mVelocity.mX = -vx * mWallRestitution;
+		location.mX = radius;
+		SetLocation(location);
+	}
+}
+
+//simple fire function for now, will have to do the bullet creation etc 
+void Tank::Fire()
+{
+	if (!CanShoot())
+	{
+		return;
+	}
+
+	//create a bullet from the game object registryt 
+	//static pointer cast to bullet because create game object returns a game object pointer and we know we are creating a bullet so we can cast it to a bullet pointer, if we were not sure we would use dynamic pointer caast and check if it is null or not 
+	BulletPtr bullet = std::static_pointer_cast<Bullet>(GameObjectRegistry::sInstance->CreateGameObject('BLLT'));
+
+	//fire from the turret tip
+	float fireOffsetDist = GetCollisionRadius() + 10.f;
+	Vector3 fireDir(cos(mTurretRotation), sin(mTurretRotation), 0.f);
+	Vector3 firePos = GetLocation() + (fireDir * fireOffsetDist);
+
+	//bullet initialize
+	bullet->InitializeFromTank(
+		std::static_pointer_cast<Tank>(shared_from_this()),
+		firePos,
+		fireDir
+	);
+
+	mAmmo--;
+	mIsShooting = false;
+
+	LOG("Tank %d fired! Ammo remaining: %d", mPlayerId, mAmmo);
+}
+
+uint32_t Tank::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const
+{
+	//this takes track of what state changed 
+	uint32_t writtenState = 0;
+
+	//this is for writting playerID
+	if (inDirtyState & ETRS_PlayerId)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(GetPlayerId());
+		writtenState |= ETRS_PlayerId;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	//this is for position, body rotation and velocity 
+	if (inDirtyState & ETRS_Pos)
+	{
+		inOutputStream.Write((bool)true);
+
+		Vector3 velocity = mVelocity;
+		inOutputStream.Write(velocity.mX);
+		inOutputStream.Write(velocity.mY);
+
+		Vector3 location = GetLocation();
+		inOutputStream.Write(location.mX);
+		inOutputStream.Write(location.mY);
+
+		inOutputStream.Write(GetRotation());
+
+		writtenState |= ETRS_Pos;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+	//thrust direction for movement 
+	if (mThrustDir != 0.f)
+	{
+		inOutputStream.Write(true);
+		inOutputStream.Write(mThrustDir > 0.f);
+	}
+	else
+	{
+		inOutputStream.Write(false);
+	}
+
+	//write turret rotation
+	if (inDirtyState & ETRS_TurretRotation)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(mTurretRotation);
+		writtenState |= ETRS_TurretRotation;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	//write color of the tank
+	if (inDirtyState & ETRS_Color)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(GetColor());
+		writtenState |= ETRS_Color;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	if (inDirtyState & ETRS_Health)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(mHealth, 8);  // 8 bits for health (0-255)
+		writtenState |= ETRS_Health;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+	
+	//write ammo
+	if (inDirtyState & ETRS_Ammo)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(mAmmo, 8);  // 8 bits for ammo (0-255)
+		writtenState |= ETRS_Ammo;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	//return the bit flag of what we actually wrote, so the client can update its state based on that
+	return writtenState;
 }
