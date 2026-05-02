@@ -105,8 +105,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SocketWrapperClientPCH.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../GD4_Core_26;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +124,9 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SocketWrapperClientPCH.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../GD4_Core_26;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,9 +135,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\GD4_Core_26\Client.hpp" />
+    <ClInclude Include="SocketWrapperClientPCH.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GD4_Core_26\Client.cpp" />
+    <ClCompile Include="SocketWrapperClientPCH.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GD4_Core_26\GD4_Core_26.vcxproj">

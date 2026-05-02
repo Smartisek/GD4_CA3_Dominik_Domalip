@@ -10,7 +10,7 @@
 //How does server know WHAT to resend ?
 //Without TransmissionData : Entire packet resent(wasteful)
 //With TransmissionData : Only failed items resent(smart)
-
+// EXAMPLE
 //Player fires 3 bullets → Packet with 3 CREATE actions
 //Packet lost → Client doesn't see bullets
 //↓

@@ -105,7 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -122,6 +122,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,45 +131,64 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AckRange.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="DeliveryNotificationManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectRegistry.cpp" />
+    <ClCompile Include="InFlightPacket.cpp" />
     <ClCompile Include="InputState.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MemoryBitStream.cpp" />
     <ClCompile Include="MemoryStream.cpp" />
+    <ClCompile Include="Move.cpp" />
+    <ClCompile Include="MoveList.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="SocketAddressFactory.cpp" />
     <ClCompile Include="SocketUtil.cpp" />
+    <ClCompile Include="SocketWrapperClientPCH.cpp" />
     <ClCompile Include="SocketWrapperPCH.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="Timing.cpp" />
     <ClCompile Include="UDPSocket.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AckRange.hpp" />
     <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="ByteSwap.hpp" />
     <ClInclude Include="choice.hpp" />
     <ClInclude Include="constants.hpp" />
+    <ClInclude Include="DeliveryNotificationManager.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="GameObjectRegistry.hpp" />
+    <ClInclude Include="InFlightPacket.hpp" />
     <ClInclude Include="InputState.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="MemoryBitStream.hpp" />
     <ClInclude Include="MemoryStream.hpp" />
+    <ClInclude Include="Move.hpp" />
+    <ClInclude Include="MoveList.hpp" />
+    <ClInclude Include="NetworkManager.hpp" />
     <ClInclude Include="player.hpp" />
+    <ClInclude Include="ReplicationCommand.hpp" />
     <ClInclude Include="Server.hpp" />
     <ClInclude Include="SocketAddress.hpp" />
     <ClInclude Include="SocketAddressFactory.hpp" />
     <ClInclude Include="SocketUtil.hpp" />
+    <ClInclude Include="SocketWrapperClientPCH.hpp" />
     <ClInclude Include="SocketWrapperPCH.hpp" />
     <ClInclude Include="SocketWrapperShared.hpp" />
     <ClInclude Include="StringUtils.hpp" />
     <ClInclude Include="Tank.hpp" />
+    <ClInclude Include="Timing.hpp" />
+    <ClInclude Include="TransmissionData.hpp" />
     <ClInclude Include="UDPSocket.hpp" />
+    <ClInclude Include="WeightedTimedMovingAverage.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -95,3 +95,55 @@ void Bullet::Update()
 		}
 	}
 }
+
+uint32_t Bullet::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const
+{
+	uint32_t writtenState = 0;
+
+	//write ownerId
+	if (inDirtyState & EBRS_OwnerPlayerId)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(GetOwnerPlayerId());
+		writtenState |= EBRS_OwnerPlayerId;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	//write position + rotation for direction
+	if (inDirtyState & EBRS_Pos)
+	{
+		inOutputStream.Write((bool)true);
+
+		Vector3 location = GetLocation();
+		inOutputStream.Write(location.mX);
+		inOutputStream.Write(location.mY);
+
+		inOutputStream.Write(GetRotation());
+
+		writtenState |= EBRS_Pos;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	//write the velocity 
+	if (inDirtyState & EBRS_Velocity)
+	{
+		inOutputStream.Write((bool)true);
+
+		inOutputStream.Write(mVelocity.mX);
+		inOutputStream.Write(mVelocity.mY);
+
+		writtenState |= EBRS_Velocity;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	return writtenState;
+}

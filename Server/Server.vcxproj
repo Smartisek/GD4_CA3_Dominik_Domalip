@@ -105,8 +105,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SocketWrapperServerPCH.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../GD4_Core_26</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +124,9 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SocketWrapperServerPCH.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../GD4_Core_26</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +135,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\GD4_Core_26\Server.cpp" />
+    <ClCompile Include="ClientProxy.cpp" />
+    <ClCompile Include="NetworkManagerServer.cpp" />
+    <ClCompile Include="ReplicationManagerServer.cpp" />
+    <ClCompile Include="ReplicationManagerTransmissionData.cpp" />
+    <ClCompile Include="SocketWrapperServerPCH.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GD4_Core_26\GD4_Core_26.vcxproj">
@@ -139,6 +148,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GD4_Core_26\Server.hpp" />
+    <ClInclude Include="ClientProxy.hpp" />
+    <ClInclude Include="NetworkManagerServer.hpp" />
+    <ClInclude Include="ReplicationManagerServer.hpp" />
+    <ClInclude Include="ReplicationManagerTransmissionData.hpp" />
+    <ClInclude Include="SocketWrapperServerPCH.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
