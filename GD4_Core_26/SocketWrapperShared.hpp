@@ -65,11 +65,19 @@ using std::unordered_set;
 #include "World.hpp"
 #include "Timing.hpp"
 #include "Server.hpp"
-
-
+#include "Client.hpp"
+#include "DeliveryNotificationManager.hpp"
+#include "InFlightPacket.hpp"
+#include "TransmissionData.hpp"
+#include "AckRange.hpp"
 
 #include "choice.hpp"
 #include "constants.hpp"
+
+#include "ReplicationCommand.hpp"
+#include "MoveList.hpp"
+#include "Move.hpp"
+
 
 #include <iostream>
 #include <sstream>

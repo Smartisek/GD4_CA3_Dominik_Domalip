@@ -1,5 +1,4 @@
 #include "SocketWrapperPCH.hpp"
-#include "Client.hpp"
 
 /* Client should offer the user a menu where they can select
 1. Echo
