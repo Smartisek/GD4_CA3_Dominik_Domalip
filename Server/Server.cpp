@@ -11,7 +11,7 @@ bool Server::StaticInit()
 Server::Server()
 {
 
-	GameObjectRegistry::sInstance->RegisterCreationFunction('TNK', TankServer::StaticCreate);
+	GameObjectRegistry::sInstance->RegisterCreationFunction('TANK', TankServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('BLLT', BulletServer::StaticCreate);
 
 	InitNetworkManager();
@@ -100,7 +100,7 @@ void Server::HandleNewClient(ClientProxyPtr inClientProxy)
 
 void Server::SpawnTankForPlayer(int inPlayerId)
 {
-	TankPtr tank = std::static_pointer_cast<Tank>(GameObjectRegistry::sInstance->CreateGameObject('RCAT'));
+	TankPtr tank = std::static_pointer_cast<Tank>(GameObjectRegistry::sInstance->CreateGameObject('TANK'));
 	tank->SetColor(ScoreBoardManager::sInstance->GetEntry(inPlayerId)->GetColor());
 	tank->SetPlayerId(inPlayerId);
 	//gotta pick a better spawn location than this...

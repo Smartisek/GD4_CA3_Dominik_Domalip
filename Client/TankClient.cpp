@@ -10,8 +10,8 @@ TankClient::TankClient() :
 	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("tank"));
 
 	// Turret sprite (separate, rotates independently)
-	mTurretSpriteComponent.reset(new SpriteComponent(this));
-	mTurretSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("turret"));
+	//mTurretSpriteComponent.reset(new SpriteComponent(this));
+	//mTurretSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("turret"));
 }
 
 void TankClient::HandleDying()

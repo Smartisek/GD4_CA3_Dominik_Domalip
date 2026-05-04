@@ -21,14 +21,19 @@ bool Client::StaticInit()
 
 Client::Client()
 {
-	GameObjectRegistry::sInstance->RegisterCreationFunction('TNK', TankClient::StaticCreate);
+	std::cout << "DEBUG: Registering TNK creation function\n";
+	GameObjectRegistry::sInstance->RegisterCreationFunction('TANK', TankClient::StaticCreate);
+	std::cout << "DEBUG: Registering BLLT creation function\n";
 	GameObjectRegistry::sInstance->RegisterCreationFunction('BLLT', BulletClient::StaticCreate);
 
+	std::cout << "DEBUG: Getting command line args\n";
 	string destination = StringUtils::GetCommandLineArg(1);
 	string name = StringUtils::GetCommandLineArg(2);
+	std::cout << "DEBUG: destination=" << destination << " name=" << name << "\n";
 
+	std::cout << "DEBUG: Creating socket address\n";
 	SocketAddressPtr serverAddress = SocketAddressFactory::CreateIPv4FromString(destination);
-
+	std::cout << "DEBUG: Initializing network manager\n";
 	NetworkManagerClient::StaticInit(*serverAddress, name);
 
 	//NetworkManagerClient::sInstance->SetSimulatedLatency(0.0f);
