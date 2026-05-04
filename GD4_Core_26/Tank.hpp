@@ -58,7 +58,6 @@ public:
 
 	//firing
 	bool CanShoot() const { return mAmmo > 0 && mHealth > 0; }
-	void Fire();  //for creating tge bullet 
 
 	// replication 
 	virtual uint32_t Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const override;
@@ -85,13 +84,11 @@ private:
 
 	//state variables 
 	uint32_t	mPlayerId;
+protected:
+	bool mIsShooting;
 	float		mLastMoveTimestamp;
 	int			mHealth;
 	int			mAmmo;
-
-	//bool mIsShooting;
-public:
-	bool mIsShooting;
 };
 
 typedef shared_ptr<Tank> TankPtr;

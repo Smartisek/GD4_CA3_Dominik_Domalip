@@ -23,13 +23,15 @@ public:
 	virtual void Update() override;
 
 	//spawn at the tank that is firing 
-	void InitializeFromTank(TankPtr TankOwner, const Vector3& StartPos, const Vector3& Direction);
+	void InitializeFromTank(Tank* inShooter);
 
 	void SetVelocity(const Vector3& inVelocity) { mVelocity = inVelocity; }
 
 	const Vector3& GetVelocity() const { return mVelocity; }
 
-	uint32_t GetOwnerPlayerId() const { return mOwnerPlayerId; }
+	void SetPlayerId(int inPlayerId) { mOwnerPlayerId = inPlayerId; }
+
+	int GetOwnerPlayerId() const { return mOwnerPlayerId; }
 
 	virtual uint32_t Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const override;
 
@@ -38,7 +40,7 @@ protected:
 
 private:
 	Vector3 mVelocity;
-	uint32_t mOwnerPlayerId;
+	int mOwnerPlayerId;
 	float mLifeTime;
 	const float mMaxLifeTime = 10.f; //when to despawn
 };

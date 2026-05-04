@@ -13,7 +13,7 @@ public:
 	virtual void HandleDying() override;
 	virtual void Update() override;
 
-	void SetCatControlType(ETankControlType inTankControlType) { mControlType = inTankControlType; }
+	void SetTankControlType(ETankControlType inTankControlType) { mControlType = inTankControlType; }
 	void TakeDamage(int inDamagingPlayerId, int inDamageAmount);
 
 protected:
@@ -21,8 +21,6 @@ protected:
 
 private:
 	void HandleShooting();
-	void HandleInput();
-	void HandleAI();
 
 	ETankControlType mControlType;
 	float mTimeOfNextShot;

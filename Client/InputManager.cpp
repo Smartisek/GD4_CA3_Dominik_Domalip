@@ -40,6 +40,7 @@ namespace
 	}
 }
 
+// ******************* assigning keys to action here 
 void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 {
 	switch (inKeyCode)
@@ -56,7 +57,7 @@ void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 	case sf::Keyboard::S:
 		UpdateDesireFloatFromKey(inInputAction, mCurrentState.mDesiredDownAmount);
 		break;
-	case sf::Keyboard::K:
+	case sf::Keyboard::Space:
 		UpdateDesireVariableFromKey(inInputAction, mCurrentState.mIsShooting);
 		break;
 	case sf::Keyboard::Add:

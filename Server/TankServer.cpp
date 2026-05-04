@@ -18,27 +18,39 @@ void TankServer::Update()
 {
 	Tank::Update();
 
-	//track old state for dirty flag checking
 	Vector3 oldLocation = GetLocation();
 	Vector3 oldVelocity = GetVelocity();
 	float oldRotation = GetRotation();
 	float oldTurretRotation = GetTurretRotation();
 	int oldAmmo = GetAmmo();
 
+	// Process input from client
 	if (mControlType == ETCT_Human)
 	{
-		HandleInput();
+		ClientProxyPtr client = NetworkManagerServer::sInstance->GetClientProxy(GetPlayerId());
+		if (client)
+		{
+			MoveList& moveList = client->GetUnprocessedMoveList();
+			for (const Move& unprocessedMove : moveList)
+			{
+				const InputState& currentState = unprocessedMove.GetInputState();
+				float deltaTime = unprocessedMove.GetDeltaTime();
+
+				ProcessInput(deltaTime, currentState);  // ← Handles movement and mIsShooting
+				SimulateMovement(deltaTime);
+			}
+
+			moveList.Clear();
+		}
 	}
 	else
 	{
-		HandleAI();
+		SimulateMovement(Timing::sInstance.GetDeltaTime());
 	}
 
-	HandleShooting();
+	HandleShooting();  // ← Check if we should fire
 
-	SimulateMovement(Timing::sInstance.GetDeltaTime());
-
-	//mark state dirty if it changed since last update, so it will be replicated to clients
+	// Mark dirty state for replication
 	if (!Math::Is2DVectorEqual(oldLocation, GetLocation()) ||
 		!Math::Is2DVectorEqual(oldVelocity, GetVelocity()) ||
 		oldRotation != GetRotation())
@@ -57,98 +69,40 @@ void TankServer::Update()
 	}
 }
 
-void TankServer::HandleInput()
-{
-	//get client that is controlling this tank 
-	ClientProxyPtr client = NetworkManagerServer::sInstance->GetClientProxy(GetPlayerId());
-	if (!client)
-	{
-		return;
-	}
-
-	//process all unprocessed moves from the client
-	MoveList& moveList = client->GetUnprocessedMoveList();
-	for (const Move& unprocessedMove : moveList)
-	{
-		const InputState& currentState = unprocessedMove.GetInputState();
-		float deltaTime = unprocessedMove.GetDeltaTime();
-
-		//process body movement and rotation
-		ProcessInput(deltaTime, currentState);
-
-		//fix the shooting here ******
-		//mIsShooting = currentState.IsShooting();
-
-		// Simulate the movement for this frame
-		SimulateMovement(deltaTime);
-	}
-	//clear processed moves
-	moveList.Clear();
-}
-
-void TankServer::HandleAI()
-{
-//do nothing for now 
-}
 
 void TankServer::HandleShooting()
 {
-	float currentTime = Timing::sInstance.GetFrameStartTime();
-
-	//only shoot when we have ammo and time to shoot
-	if (mIsShooting && currentTime > mTimeOfNextShot && CanShoot())
+	float time = Timing::sInstance.GetFrameStartTime();
+	if (mIsShooting && Timing::sInstance.GetFrameStartTime() > mTimeOfNextShot)
 	{
-		mTimeOfNextShot = currentTime + mTimeBetweenShots;
+		//not exact, but okay
+		mTimeOfNextShot = time + mTimeBetweenShots;
 
-		//create a bullet
-		BulletPtr bullet = std::static_pointer_cast<Bullet>(
-			GameObjectRegistry::sInstance->CreateGameObject('BLLT')
-		);
-
-		//fire from turret tip in turret direction
-		float fireOffsetDist = GetCollisionRadius() + 10.f;
-		Vector3 fireDir(cos(GetTurretRotation()), sin(GetTurretRotation()), 0.f);
-		Vector3 firePos = GetLocation() + (fireDir * fireOffsetDist);
-
-		//initialize the bullet
-		bullet->InitializeFromTank(
-			std::static_pointer_cast<Tank>(shared_from_this()),
-			firePos,
-			fireDir
-		);
-		//consume the ammo and mark it dirty so it will be replicated to clients
-		SetAmmo(GetAmmo() - 1);
-		NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ETRS_Ammo);
-
-		mIsShooting = false;
-
-		LOG("TankServer %d fired! Ammo: %d", GetPlayerId(), GetAmmo());
+		//fire!
+		BulletPtr bullet = std::static_pointer_cast<Bullet>(GameObjectRegistry::sInstance->CreateGameObject('BLLT'));
+		bullet->InitializeFromTank(this);
 	}
-
 }
 
 void TankServer::TakeDamage(int inDamagingPlayerId, int inDamageAmount)
 {
-	int newHealth = GetHealth() - inDamageAmount;
-	SetHealth(newHealth);
-	//mark dirty 
-	NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ETRS_Health);
-
-	if (newHealth <= 0)
+	mHealth--;
+	if (mHealth <= 0.f)
 	{
-		//give point to killer
+		//score one for damaging player...
 		ScoreBoardManager::sInstance->IncScore(inDamagingPlayerId, 1);
 
-		//mark for death
+		//and you want to die
 		SetDoesWantToDie(true);
 
-		//notify client proxy to handle respawn
+		//tell the client proxy to make you a new cat
 		ClientProxyPtr clientProxy = NetworkManagerServer::sInstance->GetClientProxy(GetPlayerId());
 		if (clientProxy)
 		{
 			clientProxy->HandleTankDied();
 		}
-
-		LOG("Tank %d destroyed by player %d", GetPlayerId(), inDamagingPlayerId);
 	}
+
+	//tell the world our health dropped
+	NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ETRS_Health);
 }

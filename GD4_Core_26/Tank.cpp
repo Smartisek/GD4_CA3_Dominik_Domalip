@@ -35,10 +35,6 @@ void Tank::ProcessInput(float inDeltaTime, const InputState& inInputState)
 	//shooting 
 	mIsShooting = inInputState.IsShooting();
 
-	if (mIsShooting)
-	{
-		Fire();
-	}
 }
 
 void Tank::AdjustVelocityByThrust(float inDeltaTime)
@@ -165,36 +161,6 @@ void Tank::ProcessCollisionsWithScreenWalls()
 		location.mX = radius;
 		SetLocation(location);
 	}
-}
-
-//simple fire function for now, will have to do the bullet creation etc 
-void Tank::Fire()
-{
-	if (!CanShoot())
-	{
-		return;
-	}
-
-	//create a bullet from the game object registryt 
-	//static pointer cast to bullet because create game object returns a game object pointer and we know we are creating a bullet so we can cast it to a bullet pointer, if we were not sure we would use dynamic pointer caast and check if it is null or not 
-	BulletPtr bullet = std::static_pointer_cast<Bullet>(GameObjectRegistry::sInstance->CreateGameObject('BLLT'));
-
-	//fire from the turret tip
-	float fireOffsetDist = GetCollisionRadius() + 10.f;
-	Vector3 fireDir(cos(mTurretRotation), sin(mTurretRotation), 0.f);
-	Vector3 firePos = GetLocation() + (fireDir * fireOffsetDist);
-
-	//bullet initialize
-	bullet->InitializeFromTank(
-		std::static_pointer_cast<Tank>(shared_from_this()),
-		firePos,
-		fireDir
-	);
-
-	mAmmo--;
-	mIsShooting = false;
-
-	LOG("Tank %d fired! Ammo remaining: %d", mPlayerId, mAmmo);
 }
 
 uint32_t Tank::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const
