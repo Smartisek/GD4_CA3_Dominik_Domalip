@@ -44,8 +44,8 @@ public:
 	void	SetIsLastMoveTimestampDirty(bool inIsDirty) { mIsLastMoveTimestampDirty = inIsDirty; }
 	bool	IsLastMoveTimestampDirty()						const { return mIsLastMoveTimestampDirty; }
 
-	void	HandleCatDied();
-	void	RespawnCatIfNecessary();
+	void	HandleTankDied();
+	void	RespawnTankIfNecessary();
 
 private:
 

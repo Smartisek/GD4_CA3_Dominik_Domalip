@@ -35,6 +35,8 @@
 #include <unordered_set>
 #include <cassert>
 #include <iostream>
+#include <sstream>
+#include <chrono>
 
 using std::shared_ptr;
 using std::unique_ptr;
@@ -56,45 +58,43 @@ class Bullet;
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 
+#include "Math.hpp"
+
 #include "StringUtils.hpp"
 #include "SocketAddress.hpp"
 #include "SocketAddressFactory.hpp"
 #include "UDPSocket.hpp"
+#include "TCPSocket.hpp"
 #include "SocketUtil.hpp"
-#include "Math.hpp"
-#include "ByteSwap.hpp"
-#include "MemoryStream.hpp"
+
 #include "MemoryBitStream.hpp"
-#include "player.hpp"
-#include "GameObject.hpp"
-#include "Tank.hpp"
-#include "InputState.hpp"
-#include "Bullet.hpp"
-#include "GameObjectRegistry.hpp"
-#include "World.hpp"
-#include "Timing.hpp"
-#include "Server.hpp"
-#include "Client.hpp"
+#include "LinkingContext.hpp"
+#include "ByteSwap.hpp"
+
+#include "TransmissionData.hpp"
 #include "InFlightPacket.hpp"
 #include "AckRange.hpp"
 #include "DeliveryNotificationManager.hpp"
-#include "TransmissionData.hpp"
 
+#include "InputAction.hpp"
+#include "InputState.hpp"
+#include "Move.hpp"
+#include "MoveList.hpp"
 
-//client
-#include "Client.hpp"
+#include "GameObject.hpp"
+#include "GameObjectRegistry.hpp"
+#include "Tank.hpp"
+#include "World.hpp"
+#include "Timing.hpp"
+#include "Bullet.hpp"
+#include "ScoreBoardManager.hpp"
+
+#include "MemoryStream.hpp"
+#include "WeightedTimedMovingAverage.hpp"
+#include "ReplicationCommand.hpp"
+
 
 #include "choice.hpp"
 #include "constants.hpp"
-
-#include "ReplicationCommand.hpp"
-#include "MoveList.hpp"
-#include "Move.hpp"
-#include "WeightedTimedMovingAverage.hpp"
 #include "NetworkManager.hpp"
 #include "Engine.hpp"
-#include "ScoreBoardManager.hpp"
-
-#include <iostream>
-#include <sstream>
-#include <chrono>

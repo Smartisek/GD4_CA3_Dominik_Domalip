@@ -25,7 +25,7 @@ GameObjectPtr GameObjectRegistry::CreateGameObject(uint32_t inFourCCName)
 
 	//should the registry depend on the world? this might be a little weird
 	//add world later
-	//World::sInstance->AddGameObject(gameObject);
+	World::sInstance->AddGameObject(gameObject);
 
 	return gameObject;
 }

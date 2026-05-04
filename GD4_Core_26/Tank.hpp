@@ -89,6 +89,8 @@ private:
 	int			mHealth;
 	int			mAmmo;
 
+	//bool mIsShooting;
+public:
 	bool mIsShooting;
 };
 

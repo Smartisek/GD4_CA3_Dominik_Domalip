@@ -149,7 +149,6 @@
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="ScoreBoardManager.cpp" />
-    <ClCompile Include="Server.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="SocketAddressFactory.cpp" />
     <ClCompile Include="SocketUtil.cpp" />
@@ -159,6 +158,7 @@
     </ClCompile>
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="TCPSocket.cpp" />
     <ClCompile Include="Timing.cpp" />
     <ClCompile Include="UDPSocket.cpp" />
     <ClCompile Include="World.cpp" />
@@ -174,7 +174,9 @@
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="GameObjectRegistry.hpp" />
     <ClInclude Include="InFlightPacket.hpp" />
+    <ClInclude Include="InputAction.hpp" />
     <ClInclude Include="InputState.hpp" />
+    <ClInclude Include="LinkingContext.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="MemoryBitStream.hpp" />
     <ClInclude Include="MemoryStream.hpp" />
@@ -184,7 +186,6 @@
     <ClInclude Include="player.hpp" />
     <ClInclude Include="ReplicationCommand.hpp" />
     <ClInclude Include="ScoreBoardManager.hpp" />
-    <ClInclude Include="Server.hpp" />
     <ClInclude Include="SocketAddress.hpp" />
     <ClInclude Include="SocketAddressFactory.hpp" />
     <ClInclude Include="SocketUtil.hpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="SocketWrapperShared.hpp" />
     <ClInclude Include="StringUtils.hpp" />
     <ClInclude Include="Tank.hpp" />
+    <ClInclude Include="TCPSocket.hpp" />
     <ClInclude Include="Timing.hpp" />
     <ClInclude Include="TransmissionData.hpp" />
     <ClInclude Include="UDPSocket.hpp" />

@@ -110,7 +110,7 @@
       <AdditionalIncludeDirectories>../SFML-2.6.2/include;../GD4_Core_26;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../SFML-2.6.2/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -130,24 +130,49 @@
       <AdditionalIncludeDirectories>../SFML-2.6.2/include;../GD4_Core_26;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../SFML-2.6.2/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\GD4_Core_26\Client.hpp" />
+    <ClInclude Include="BulletClient.hpp" />
+    <ClInclude Include="Client.hpp" />
+    <ClInclude Include="FontManager.hpp" />
+    <ClInclude Include="HUD.hpp" />
+    <ClInclude Include="InputManager.hpp" />
+    <ClInclude Include="NetworkManagerClient.hpp" />
+    <ClInclude Include="PlayerSpriteComponent.hpp" />
+    <ClInclude Include="RenderManager.hpp" />
+    <ClInclude Include="ReplicationManagerClient.hpp" />
     <ClInclude Include="SocketWrapperClientPCH.hpp" />
+    <ClInclude Include="SpriteComponent.hpp" />
+    <ClInclude Include="TankClient.hpp" />
+    <ClInclude Include="TextureManager.hpp" />
+    <ClInclude Include="WindowManager.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\GD4_Core_26\Client.cpp" />
+    <ClCompile Include="BulletClient.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientMain.cpp" />
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="NetworkManagerClient.cpp" />
+    <ClCompile Include="PlayerSpriteComponent.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="ReplicationManagerClient.cpp" />
     <ClCompile Include="SocketWrapperClientPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SocketWrapperClientPCH.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SocketWrapperClientPCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="TankClient.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GD4_Core_26\GD4_Core_26.vcxproj">

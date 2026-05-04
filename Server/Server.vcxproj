@@ -110,7 +110,7 @@
       <AdditionalIncludeDirectories>../SFML-2.6.2/include;../GD4_Core_26</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../SFML-2.6.2/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -130,24 +130,27 @@
       <AdditionalIncludeDirectories>../SFML-2.6.2/include;../GD4_Core_26</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../SFML-2.6.2/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\GD4_Core_26\Server.cpp" />
+    <ClCompile Include="BulletServer.cpp" />
     <ClCompile Include="ClientProxy.cpp" />
     <ClCompile Include="NetworkManagerServer.cpp" />
     <ClCompile Include="ReplicationManagerServer.cpp" />
     <ClCompile Include="ReplicationManagerTransmissionData.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ServerMain.cpp" />
     <ClCompile Include="SocketWrapperServerPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SocketWrapperServerPCH.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SocketWrapperServerPCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="TankServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GD4_Core_26\GD4_Core_26.vcxproj">
@@ -155,12 +158,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\GD4_Core_26\Server.hpp" />
+    <ClInclude Include="BulletServer.hpp" />
     <ClInclude Include="ClientProxy.hpp" />
     <ClInclude Include="NetworkManagerServer.hpp" />
     <ClInclude Include="ReplicationManagerServer.hpp" />
     <ClInclude Include="ReplicationManagerTransmissionData.hpp" />
+    <ClInclude Include="Server.hpp" />
     <ClInclude Include="SocketWrapperServerPCH.hpp" />
+    <ClInclude Include="TankServer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
