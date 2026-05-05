@@ -11,6 +11,7 @@ TextureManager::TextureManager()
 {
 	CacheTexture("tank", "../Assets/Hull1.png");
 	CacheTexture("bullet", "../Assets/Bullet.png");
+	CacheTexture("turret", "../Assets/Turret1.png");
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)

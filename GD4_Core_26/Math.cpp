@@ -20,3 +20,18 @@ Vector3 Math::GetRandomVector(const Vector3& inMin, const Vector3& inMax)
 	Vector3 r = Vector3(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
 	return inMin + (inMax - inMin) * r;
 }
+
+float Math::NormalizeAngleDegrees(float inDegrees)
+{
+	while (inDegrees < 0.f) inDegrees += 360.f;
+	while (inDegrees >= 360.f) inDegrees -= 360.f;
+	return inDegrees;
+}
+
+float Math::DeltaAngleDegrees(float fromDegrees, float toDegrees)
+{
+	float delta = NormalizeAngleDegrees(toDegrees) - NormalizeAngleDegrees(fromDegrees);
+	while (delta > 180.f) delta -= 360.f;
+	while (delta < -180.f) delta += 360.f;
+	return delta;
+}

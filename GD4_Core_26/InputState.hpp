@@ -7,11 +7,13 @@ public:
 		mDesiredLeftAmount(0),
 		mDesiredUpAmount(0),
 		mDesiredDownAmount(0),
-		mIsShooting(false)
+		mIsShooting(false),
+		mTurretRotation(0.f)
 	{}
 
 	float GetDesiredHorizontalDelta()	const { return mDesiredRightAmount - mDesiredLeftAmount; }
 	float GetDesiredVerticalDelta()		const { return mDesiredUpAmount - mDesiredDownAmount; }
+	float GetTurretRotation()			const { return mTurretRotation; }
 	bool  IsShooting()					const { return mIsShooting; }
 
 	bool Write(OutputMemoryBitStream& inOutputStream) const;
@@ -23,5 +25,6 @@ private:
 	float mDesiredRightAmount, mDesiredLeftAmount;
 	float mDesiredUpAmount, mDesiredDownAmount;
 	bool mIsShooting;
+	float mTurretRotation;
 };
 

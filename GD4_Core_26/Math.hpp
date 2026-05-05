@@ -194,6 +194,9 @@ namespace Math
 	{
 		return (inDegrees / 180.0f) * PI;
 	}
+
+	float NormalizeAngleDegrees(float inDegrees);
+	float DeltaAngleDegrees(float fromDegrees, float toDegrees);
 }
 
 namespace Colors

@@ -150,6 +150,7 @@
     <ClInclude Include="SpriteComponent.hpp" />
     <ClInclude Include="TankClient.hpp" />
     <ClInclude Include="TextureManager.hpp" />
+    <ClInclude Include="TurretSpriteComponent.hpp" />
     <ClInclude Include="WindowManager.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="TankClient.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TurretSpriteComponent.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>

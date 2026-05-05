@@ -5,6 +5,7 @@ unique_ptr< InputManager >	InputManager::sInstance;
 namespace
 {
 	float kTimeBetweenInputSamples = 0.03f;
+	const float kTurretDeadZone = 20.f; //pixels around the center of the tank where turret won't rotate
 }
 
 void InputManager::StaticInit()
@@ -117,5 +118,44 @@ void InputManager::Update()
 	if (IsTimeToSampleInput())
 	{
 		mPendingMove = &SampleInputAsMove();
+	}
+
+	//get mouse position in worlds space
+	sf::Vector2f mousePos = WindowManager::sInstance->mapPixelToCoords(
+		sf::Mouse::getPosition(*WindowManager::sInstance));
+
+	//get local tank positoin
+	Vector3 tankPos = Vector3::Zero;
+	uint32_t localPlayerId = NetworkManagerClient::sInstance->GetPlayerId();
+	bool foundTank = false;
+
+	const auto& gameObjects = World::sInstance->GetGameObjects();
+	for (const auto& go : gameObjects)
+	{
+		Tank* tank = go->GetAsTank();
+		if (tank && tank->GetPlayerId() == localPlayerId)
+		{
+			tankPos = tank->GetLocation();
+			foundTank = true;
+			break;
+		}
+	}
+
+	if (foundTank)
+	{
+		float dx = mousePos.x - tankPos.mX;
+		float dy = mousePos.y - tankPos.mY;
+		float distSq = dx * dx + dy * dy;
+
+		if (distSq > (kTurretDeadZone * kTurretDeadZone))
+		{
+			float angleDeg = Math::ToDegrees(atan2(dy, dx));
+
+			// normalize to [0, 360)
+			while (angleDeg < 0.f) angleDeg += 360.f;
+			while (angleDeg >= 360.f) angleDeg -= 360.f;
+
+			mCurrentState.mTurretRotation = angleDeg;
+		}
 	}
 }

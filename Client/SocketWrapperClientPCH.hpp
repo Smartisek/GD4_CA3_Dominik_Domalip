@@ -20,4 +20,5 @@
 
 #include "ReplicationManagerClient.hpp"
 #include "NetworkManagerClient.hpp"
+#include "TurretSpriteComponent.hpp"
 #include "Client.hpp"

@@ -19,14 +19,16 @@ void Bullet::InitializeFromTank(Tank* inShooter)
 	SetColor(inShooter->GetColor());
 	SetPlayerId(inShooter->GetPlayerId());
 
-	Vector3 forward = inShooter->GetForwardVector();
-	SetVelocity(inShooter->GetVelocity() + forward * 50); //make constant later
+	float turretRad = Math::ToRadians(inShooter->GetTurretRotation());
+	Vector3 forward(cosf(turretRad), sinf(turretRad), 0.f);
+
+	SetVelocity(inShooter->GetVelocity() + forward * 50);
 
 	float fireOffsetDist = inShooter->GetCollisionRadius() + 10.f;
 	Vector3 firePos = inShooter->GetLocation() + (forward * fireOffsetDist);
 	SetLocation(firePos);
-	//SetLocation(inShooter->GetLocation());
-	SetRotation(inShooter->GetRotation());
+
+	SetRotation(inShooter->GetTurretRotation());
 }
 
 void Bullet::Update()

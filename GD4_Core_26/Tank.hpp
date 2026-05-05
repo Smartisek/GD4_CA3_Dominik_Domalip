@@ -74,7 +74,7 @@ private:
 	float mMaxRotationSpeed;
 	float mThrustDir;
 
-	//turret rotations 
+	//turret rotation
 	float mTurretRotation;		//independent from body rotation
 	float mTurretRotationSpeed;
 

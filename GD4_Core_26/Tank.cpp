@@ -9,7 +9,7 @@ Tank::Tank() :
 	mMaxLinearSpeed(5000.f),
 	mVelocity(Vector3::Zero),
 	mTurretRotation(0.f),
-	mTurretRotationSpeed(120.f),
+	mTurretRotationSpeed(80.f), //adjust for feeling 
 	mWallRestitution(0.1f),
 	mTankRestitution(0.1f),
 	mThrustDir(0.f),
@@ -30,7 +30,20 @@ void Tank::ProcessInput(float inDeltaTime, const InputState& inInputState)
 	float inputForwardDelta = inInputState.GetDesiredVerticalDelta();
 	mThrustDir = inputForwardDelta;
 
-	//Implement turret rotation later ********************
+	//turret speed turn using Math helpers
+	float desired = Math::NormalizeAngleDegrees(inInputState.GetTurretRotation());
+	float current = Math::NormalizeAngleDegrees(GetTurretRotation());
+
+	float delta = Math::DeltaAngleDegrees(current, desired);
+
+	float maxStep = mTurretRotationSpeed * inDeltaTime;
+	if (delta > maxStep) delta = maxStep;
+	else if (delta < -maxStep) delta = -maxStep;
+
+	float newTurret = Math::NormalizeAngleDegrees(current + delta);
+
+	SetTurretRotation(newTurret);
+
 
 	//shooting 
 	mIsShooting = inInputState.IsShooting();

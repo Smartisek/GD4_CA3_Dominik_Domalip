@@ -30,11 +30,14 @@ protected:
 
 private:
 	void InterpolateClientSidePrediction(float inOldRotation, float inOldTurretRotation, const Vector3& inOldLocation, const Vector3& inOldVelocity, bool inIsForRemoteTank);
+	//void RenderTurret();
+	void UpdateTurretAim();
 
 	float mTimeLocationBecameOutOfSync;
 	float mTimeVelocityBecameOutOfSync;
 	float mTimeTurretBecameOutOfSync;
 
 	SpriteComponentPtr mSpriteComponent;
-	SpriteComponentPtr mTurretSpriteComponent;  // Separate turret sprite
+	SpriteComponentPtr mTurretSpriteComponent;  //separate turret sprite
+
 };

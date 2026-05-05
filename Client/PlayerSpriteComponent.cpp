@@ -14,7 +14,7 @@ sf::Sprite& PlayerSpriteComponent::GetSprite()
 	m_sprite.setRotation(rot);
 	Tank* player = dynamic_cast<Tank*>(mGameObject);
 	Vector3 playerColor = player->GetColor();
-	m_sprite.setColor(sf::Color(playerColor.mX, playerColor.mY, playerColor.mZ, 255));
+	m_sprite.setColor(sf::Color::Magenta);
 
 	return m_sprite;
 }

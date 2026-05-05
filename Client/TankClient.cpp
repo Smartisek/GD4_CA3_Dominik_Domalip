@@ -10,8 +10,8 @@ TankClient::TankClient() :
 	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("tank"));
 
 	// Turret sprite (separate, rotates independently)
-	//mTurretSpriteComponent.reset(new SpriteComponent(this));
-	//mTurretSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("turret"));
+	mTurretSpriteComponent.reset(new TurretSpriteComponent(this));
+	mTurretSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("turret"));
 }
 
 void TankClient::HandleDying()
@@ -33,10 +33,14 @@ void TankClient::Update()
 		const Move* pendingMove = InputManager::sInstance->GetAndClearPendingMove();
 		if (pendingMove)
 		{
+			//UpdateTurretAim();
+
 			float deltaTime = pendingMove->GetDeltaTime();
+			const InputState& inputState = pendingMove->GetInputState();
 
 			// Apply input locally (includes body movement and turret rotation)
 			ProcessInput(deltaTime, pendingMove->GetInputState());
+
 
 			// Simulate movement
 			SimulateMovement(deltaTime);
@@ -57,6 +61,25 @@ void TankClient::Update()
 			mTimeLocationBecameOutOfSync = 0.f;
 		}
 	}
+}
+
+void TankClient::UpdateTurretAim()
+{
+	if (GetPlayerId() != NetworkManagerClient::sInstance->GetPlayerId())
+	{
+		return;
+	}
+
+	sf::Vector2i mousePixel = sf::Mouse::getPosition();
+	sf::Vector2f mouseWorld = WindowManager::sInstance->mapPixelToCoords(mousePixel);
+
+	Vector3 tankPos = GetLocation();
+
+	float dx = mouseWorld.x - tankPos.mX;
+	float dy = mouseWorld.y - tankPos.mY;
+
+	float angleDeg = Math::ToDegrees(atan2(dy, dx));
+	SetTurretRotation(angleDeg);
 }
 
 void TankClient::Read(InputMemoryBitStream& inInputStream)

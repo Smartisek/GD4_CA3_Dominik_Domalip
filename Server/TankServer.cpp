@@ -80,7 +80,20 @@ void TankServer::HandleShooting()
 
 		//fire!
 		BulletPtr bullet = std::static_pointer_cast<Bullet>(GameObjectRegistry::sInstance->CreateGameObject('BLLT'));
-		bullet->InitializeFromTank(this);
+		if (bullet)
+		{
+			// Fire from turret tip using TURRET rotation, not body rotation
+			float fireOffsetDist = GetCollisionRadius() + 20.f;
+			float turretRad = Math::ToRadians(GetTurretRotation());
+			Vector3 fireDir(cosf(turretRad), sinf(turretRad), 0.f);
+			Vector3 firePos = GetLocation() + (fireDir * fireOffsetDist);
+
+			bullet->InitializeFromTank(this);
+			bullet->SetLocation(firePos);
+			const float kBulletSpriteOffset = 90.f;
+			bullet->SetRotation(GetTurretRotation() + kBulletSpriteOffset);
+			bullet->SetVelocity(fireDir * 300.f);
+		}
 	}
 }
 
