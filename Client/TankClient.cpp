@@ -6,10 +6,12 @@ TankClient::TankClient() :
 	mTimeTurretBecameOutOfSync(0.f)
 {
 	// Main tank body sprite
+	SetScale(kTankSpriteScale);
 	mSpriteComponent.reset(new PlayerSpriteComponent(this));
 	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("tank"));
 
 	// Turret sprite (separate, rotates independently)
+	SetScale(kTurretSpriteScale);
 	mTurretSpriteComponent.reset(new TurretSpriteComponent(this));
 	mTurretSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("turret"));
 }

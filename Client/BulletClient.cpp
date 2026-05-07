@@ -2,6 +2,7 @@
 
 BulletClient::BulletClient()
 {
+	SetScale(kBulletSpriteScale);
 	mSpriteComponent.reset(new SpriteComponent(this));
 	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("bullet"));
 }
@@ -16,7 +17,6 @@ void BulletClient::Read(InputMemoryBitStream& inInputStream)
 	{
 		uint32_t ownerPlayerId;
 		inInputStream.Read(ownerPlayerId);
-		// Set owner (you may need a setter in Bullet class)
 	}
 
 	// Read Pose (position + rotation)

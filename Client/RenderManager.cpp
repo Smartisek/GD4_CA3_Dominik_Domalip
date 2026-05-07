@@ -4,7 +4,7 @@ std::unique_ptr< RenderManager >	RenderManager::sInstance;
 
 RenderManager::RenderManager()
 {
-	view.reset(sf::FloatRect(0, 0, 1280, 720));
+	view.reset(sf::FloatRect(0, 0, kWindowWidth, kWindowHeight));
 	WindowManager::sInstance->setView(view);
 }
 

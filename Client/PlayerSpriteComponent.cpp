@@ -13,8 +13,8 @@ sf::Sprite& PlayerSpriteComponent::GetSprite()
 	m_sprite.setPosition(pos.mX, pos.mY);
 	m_sprite.setRotation(rot);
 	Tank* player = dynamic_cast<Tank*>(mGameObject);
-	Vector3 playerColor = player->GetColor();
-	m_sprite.setColor(sf::Color::Magenta);
+	//Vector3 playerColor = player->GetColor();
+	//m_sprite.setColor(sf::Color(playerColor.mX, playerColor.mY, playerColor.mZ, 255));
 
 	return m_sprite;
 }

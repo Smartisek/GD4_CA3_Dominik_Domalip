@@ -201,7 +201,6 @@ namespace Math
 
 namespace Colors
 {
-	static const Vector3 Black(0.0f, 0.0f, 0.0f);
 	static const Vector3 White(1.0f, 1.0f, 1.0f);
 	static const Vector3 Red(1.0f, 0.0f, 0.0f);
 	static const Vector3 Green(0.0f, 1.0f, 0.0f);

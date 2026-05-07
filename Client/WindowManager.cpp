@@ -4,7 +4,7 @@ std::unique_ptr<sf::RenderWindow>	WindowManager::sInstance;
 
 bool WindowManager::StaticInit()
 {
-	sInstance.reset(new sf::RenderWindow(sf::VideoMode(1920, 1080), "ARMORED ASSAULT"));
+	sInstance.reset(new sf::RenderWindow(sf::VideoMode(kWindowWidth, kWindowHeight), "ARMORED ASSAULT"));
 	return true;
 }
 
