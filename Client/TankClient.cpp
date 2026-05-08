@@ -10,6 +10,8 @@ TankClient::TankClient() :
 	mSpriteComponent.reset(new PlayerSpriteComponent(this));
 	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("tank"));
 
+	mHealthBarComponent.reset(new HealthBarSpriteComponent(this));
+
 	// Turret sprite (separate, rotates independently)
 	SetScale(kTurretSpriteScale);
 	mTurretSpriteComponent.reset(new TurretSpriteComponent(this));
@@ -159,8 +161,9 @@ void TankClient::Read(InputMemoryBitStream& inInputStream)
 	inInputStream.Read(stateBit);
 	if (stateBit)
 	{
-		int health;
+		uint8_t health;
 		inInputStream.Read(health, 8);
+		LOG("Client tank %d health=%d", GetPlayerId(), health);
 		SetHealth(health);
 		readState |= ETRS_Health;
 	}
@@ -169,7 +172,7 @@ void TankClient::Read(InputMemoryBitStream& inInputStream)
 	inInputStream.Read(stateBit);
 	if (stateBit)
 	{
-		int ammo;
+		uint8_t ammo;
 		inInputStream.Read(ammo, 8);
 		SetAmmo(ammo);
 		readState |= ETRS_Ammo;

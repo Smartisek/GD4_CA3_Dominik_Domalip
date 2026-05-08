@@ -39,5 +39,6 @@ private:
 
 	SpriteComponentPtr mSpriteComponent;
 	SpriteComponentPtr mTurretSpriteComponent;  //separate turret sprite
+	SpriteComponentPtr mHealthBarComponent;
 
 };

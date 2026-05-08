@@ -18,3 +18,11 @@ constexpr unsigned int kBulletDamage = 10;
 constexpr float kTankSpriteScale = 0.6f;
 constexpr float kTurretSpriteScale = 0.6f;
 constexpr float kBulletSpriteScale = 0.4f;
+
+//Health bar constants
+constexpr float kHealthBarWidth = 85.f;
+constexpr float kHealthBarHeight = 6.f;
+constexpr float kHealthBarOffset = 85.f;
+
+//tank game constants
+constexpr int kMaxTankHealth = 100;

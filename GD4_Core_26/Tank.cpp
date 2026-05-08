@@ -15,7 +15,7 @@ Tank::Tank() :
 	mThrustDir(0.f),
 	mPlayerId(0),
 	mIsShooting(false),
-	mHealth(100),
+	mHealth(kMaxTankHealth),
 	mAmmo(50)
 {
 	SetCollisionRadius(kTankCollisionRadius); //adjust later***

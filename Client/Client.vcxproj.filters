@@ -60,6 +60,9 @@
     <ClInclude Include="TurretSpriteComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HealthBarSpriteComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SocketWrapperClientPCH.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TurretSpriteComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBarSpriteComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

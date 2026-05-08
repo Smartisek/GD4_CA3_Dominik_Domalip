@@ -54,16 +54,26 @@ int RenderManager::GetComponentIndex(SpriteComponent* inComponent) const
 //render the cameras in order
 void RenderManager::RenderComponents()
 {
-	//Get the logical viewport so we can pass this to the SpriteComponents when it's draw time
+	//draw body of tank first or any non turret/health bar 
 	for (SpriteComponent* c : mComponents)
 	{
-		if (dynamic_cast<TurretSpriteComponent*>(c) == nullptr)
+		if (dynamic_cast<TurretSpriteComponent*>(c) == nullptr &&
+			dynamic_cast<HealthBarSpriteComponent*>(c) == nullptr)
 		{
 			WindowManager::sInstance->draw(c->GetSprite());
 		}
 	}
 
-	// draw turrets on top
+	//draw healthbar second
+	for (SpriteComponent* c : mComponents)
+	{
+		if (dynamic_cast<HealthBarSpriteComponent*>(c) != nullptr)
+		{
+			WindowManager::sInstance->draw(c->GetSprite());
+		}
+	}
+
+	//draw turret last 
 	for (SpriteComponent* c : mComponents)
 	{
 		if (dynamic_cast<TurretSpriteComponent*>(c) != nullptr)
