@@ -19,6 +19,7 @@ private:
 	void	RenderBandWidth();
 	void	RenderRoundTripTime();
 	void	RenderScoreBoard();
+	void    RenderCursor();
 	void	RenderHealth();
 	void	RenderAmmo();
 	void	RenderText(const string& inStr, const Vector3& origin, const Vector3& inColor);
@@ -31,6 +32,7 @@ private:
 	Vector3										mAmmoOffset;
 	int											mHealth;
 	int											mAmmo;
+	sf::Sprite									mCursorSprite;
 };
 
 

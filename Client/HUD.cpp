@@ -12,6 +12,11 @@ HUD::HUD() :
 	mHealth(0),
 	mAmmo(0)
 {
+	auto tex = TextureManager::sInstance->GetTexture("cursor");
+	mCursorSprite.setTexture(*tex);
+	mCursorSprite.setScale(0.5f, 0.5f);
+	auto size = tex->getSize();
+	mCursorSprite.setOrigin(size.x / 2.0f, size.y / 2.0f);
 }
 
 
@@ -23,6 +28,7 @@ void HUD::StaticInit()
 void HUD::Render()
 {
 	RenderBandWidth();
+	RenderCursor();
 	RenderRoundTripTime();
 	RenderScoreBoard();
 	RenderHealth();
@@ -75,6 +81,14 @@ void HUD::RenderScoreBoard()
 		offset.mY += mScoreOffset.mY;
 	}
 
+}
+
+void HUD::RenderCursor()
+{
+	sf::Vector2i mousePixel = sf::Mouse::getPosition(*WindowManager::sInstance);
+	sf::Vector2f mouseWorld = WindowManager::sInstance->mapPixelToCoords(mousePixel);
+	mCursorSprite.setPosition(mouseWorld.x, mouseWorld.y);
+	WindowManager::sInstance->draw(mCursorSprite);
 }
 
 void HUD::RenderText(const string& inStr, const Vector3& origin, const Vector3& inColor)
