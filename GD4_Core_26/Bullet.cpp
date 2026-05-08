@@ -1,17 +1,12 @@
 #include "SocketWrapperPCH.hpp"
 
-//constatns for bullet, might move to precomplied header later ? ****
-const float BULLET_SPEED = 3000.f;
-const float BULLET_LIFETIME = 10.f;
-const float BULLET_RADIUS = 5.f;
-
 Bullet::Bullet() :
 	GameObject(),
 	mVelocity(Vector3::Zero),
 	mOwnerPlayerId(0),
 	mLifeTime(0.f)
 {
-	SetCollisionRadius(BULLET_RADIUS);
+	SetCollisionRadius(kBulletCollisionRadius);
 }
 
 void Bullet::InitializeFromTank(Tank* inShooter)

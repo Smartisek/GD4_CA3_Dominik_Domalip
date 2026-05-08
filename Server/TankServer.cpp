@@ -36,7 +36,7 @@ void TankServer::Update()
 				const InputState& currentState = unprocessedMove.GetInputState();
 				float deltaTime = unprocessedMove.GetDeltaTime();
 
-				ProcessInput(deltaTime, currentState);  // ← Handles movement and mIsShooting
+				ProcessInput(deltaTime, currentState);
 				SimulateMovement(deltaTime);
 			}
 
@@ -99,7 +99,8 @@ void TankServer::HandleShooting()
 
 void TankServer::TakeDamage(int inDamagingPlayerId, int inDamageAmount)
 {
-	mHealth--;
+	mHealth -= inDamageAmount;
+	LOG("Tank %d took %d damage, health now %d", GetPlayerId(), inDamageAmount, mHealth);
 	if (mHealth <= 0.f)
 	{
 		//score one for damaging player...

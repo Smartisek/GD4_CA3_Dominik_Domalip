@@ -18,7 +18,7 @@ Tank::Tank() :
 	mHealth(100),
 	mAmmo(50)
 {
-	SetCollisionRadius(40.f); //adjust later***
+	SetCollisionRadius(kTankCollisionRadius); //adjust later***
 }
 
 void Tank::ProcessInput(float inDeltaTime, const InputState& inInputState)
@@ -70,7 +70,7 @@ void Tank::SimulateMovement(float inDeltaTime)
 
 void Tank::Update()
 {
-	//for now nothing 
+	ProcessCollisions();
 }
 
 void Tank::ProcessCollisions()

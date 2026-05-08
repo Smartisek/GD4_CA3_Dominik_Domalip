@@ -24,10 +24,11 @@ bool BulletServer::HandleCollisionWithTank(Tank* inTank)
 {
 	if (inTank->GetPlayerId() != GetOwnerPlayerId())
 	{
+		LOG("Bullet hit tank: shooter=%d target=%d", GetOwnerPlayerId(), inTank->GetPlayerId());
 		//go away 
 		SetDoesWantToDie(true);
 
-		static_cast<TankServer*>(inTank)->TakeDamage(GetOwnerPlayerId(), 1); //damagage here do constanst.hpp later***
+		static_cast<TankServer*>(inTank)->TakeDamage(GetOwnerPlayerId(), kBulletDamage); //damagage here do constanst.hpp later***
 	}
 
 	return false;

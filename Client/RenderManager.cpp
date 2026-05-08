@@ -57,7 +57,19 @@ void RenderManager::RenderComponents()
 	//Get the logical viewport so we can pass this to the SpriteComponents when it's draw time
 	for (SpriteComponent* c : mComponents)
 	{
-		WindowManager::sInstance->draw(c->GetSprite());
+		if (dynamic_cast<TurretSpriteComponent*>(c) == nullptr)
+		{
+			WindowManager::sInstance->draw(c->GetSprite());
+		}
+	}
+
+	// draw turrets on top
+	for (SpriteComponent* c : mComponents)
+	{
+		if (dynamic_cast<TurretSpriteComponent*>(c) != nullptr)
+		{
+			WindowManager::sInstance->draw(c->GetSprite());
+		}
 	}
 }
 
