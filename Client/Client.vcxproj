@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="BulletClient.hpp" />
     <ClInclude Include="Client.hpp" />
+    <ClInclude Include="DamagePopupComponent.hpp" />
     <ClInclude Include="FontManager.hpp" />
     <ClInclude Include="HealthBarSpriteComponent.hpp" />
     <ClInclude Include="HUD.hpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="BulletClient.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientMain.cpp" />
+    <ClCompile Include="DamagePopupComponent.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="HealthBarSpriteComponent.cpp" />
     <ClCompile Include="HUD.cpp" />

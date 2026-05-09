@@ -8,6 +8,7 @@
 #include "InputManager.hpp"
 #include "SpriteComponent.hpp"
 #include "PlayerSpriteComponent.hpp"
+#include "DamagePopupComponent.hpp" 
 #include "TextureManager.hpp"
 #include "FontManager.hpp"
 #include "RenderManager.hpp"

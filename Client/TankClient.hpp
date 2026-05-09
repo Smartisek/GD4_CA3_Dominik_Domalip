@@ -11,7 +11,6 @@
 //Interpolate smoothly between old and predicted position
 //↓
 //Render on screen
-
 class TankClient : public Tank
 {
 public:
@@ -19,6 +18,7 @@ public:
 
 	virtual void Update() override;
 	virtual void HandleDying() override;
+	void DrawDamagePopups(sf::RenderWindow& window);
 
 	virtual void Read(InputMemoryBitStream& inInputStream) override;
 
@@ -40,5 +40,10 @@ private:
 	SpriteComponentPtr mSpriteComponent;
 	SpriteComponentPtr mTurretSpriteComponent;  //separate turret sprite
 	SpriteComponentPtr mHealthBarComponent;
+
+	int   mLastKnownHealth;           // track previous health to detect hits
+	float mHitFlashTimer;             // red flash duration remaining
+	static constexpr float kFlashDuration = 0.18f;
+	std::vector<shared_ptr<DamagePopupComponent>> mDamagePopups;
 
 };

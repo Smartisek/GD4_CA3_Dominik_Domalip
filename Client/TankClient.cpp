@@ -3,7 +3,9 @@
 TankClient::TankClient() :
 	mTimeLocationBecameOutOfSync(0.f),
 	mTimeVelocityBecameOutOfSync(0.f),
-	mTimeTurretBecameOutOfSync(0.f)
+	mTimeTurretBecameOutOfSync(0.f),
+	mLastKnownHealth(kMaxTankHealth), 
+	mHitFlashTimer(0.f)
 {
 	// Main tank body sprite
 	SetScale(kTankSpriteScale);
@@ -31,6 +33,33 @@ void TankClient::HandleDying()
 
 void TankClient::Update()
 {
+	//pop up logic update
+	float dt = Timing::sInstance.GetDeltaTime();
+	//set red blick for the tank
+	if (mHitFlashTimer > 0.f)
+	{
+		mHitFlashTimer -= dt;
+		if (mSpriteComponent && mTurretSpriteComponent)
+		{
+			mSpriteComponent->GetSprite().setColor(sf::Color(255, 80, 80, 255));
+			mTurretSpriteComponent->GetSprite().setColor(sf::Color(255, 80, 80, 255));
+		}
+	}
+	else
+	{
+		mSpriteComponent->GetSprite().setColor(sf::Color::White);
+		mTurretSpriteComponent->GetSprite().setColor(sf::Color::White);
+	}
+
+	for (int i = (int)mDamagePopups.size() - 1; i >= 0; i--)
+	{
+		mDamagePopups[i]->Update(dt);
+		if (mDamagePopups[i]->IsExpired())
+		{
+			mDamagePopups.erase(mDamagePopups.begin() + i);
+		}
+	}
+
 	// Is this the tank owned by us (local player)?
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
 	{
@@ -64,6 +93,14 @@ void TankClient::Update()
 		{
 			mTimeLocationBecameOutOfSync = 0.f;
 		}
+	}
+}
+
+void TankClient::DrawDamagePopups(sf::RenderWindow& window)
+{
+	for (const auto& popup : mDamagePopups)
+	{
+		popup.get()->Draw(*WindowManager::sInstance);
 	}
 }
 
@@ -164,6 +201,29 @@ void TankClient::Read(InputMemoryBitStream& inInputStream)
 		uint8_t health;
 		inInputStream.Read(health, 8);
 		LOG("Client tank %d health=%d", GetPlayerId(), health);
+
+		//**** UI pop up logic 
+		int newHealth = static_cast<int>(health);
+		if (newHealth < mLastKnownHealth)
+		{
+			int damage = mLastKnownHealth - newHealth; //calculate the damage(could also just use the constant)
+			auto font = FontManager::sInstance->GetFont("carlito");
+			if (font)
+			{
+				std::string msg = "-" + std::to_string(damage);
+				mDamagePopups.push_back(make_shared<DamagePopupComponent>(
+					this,
+					msg,
+					GetLocation().mX,
+					GetLocation().mY
+				));
+			}
+			//red blick timer
+			mHitFlashTimer = kFlashDuration;
+		}
+		mLastKnownHealth = newHealth;
+		// *****
+
 		SetHealth(health);
 		readState |= ETRS_Health;
 	}

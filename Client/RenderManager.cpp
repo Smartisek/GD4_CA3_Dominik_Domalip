@@ -91,6 +91,13 @@ void RenderManager::Render()
 	WindowManager::sInstance->clear(sf::Color(100, 149, 237, 255));
 
 	RenderManager::sInstance->RenderComponents();
+	//draw damage popups for every tank 
+	for (auto& go : World::sInstance->GetGameObjects())
+	{
+		TankClient* tank = static_cast<TankClient*>(go->GetAsTank());
+		if (tank)
+			tank->DrawDamagePopups(*WindowManager::sInstance);
+	}
 
 	HUD::sInstance->Render();
 

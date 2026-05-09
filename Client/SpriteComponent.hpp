@@ -11,6 +11,7 @@ public:
 
 	virtual void SetTexture(TexturePtr inTexture);
 	virtual sf::Sprite& GetSprite();
+	virtual void Draw(sf::RenderWindow& window) { window.draw(GetSprite()); }
 
 
 
