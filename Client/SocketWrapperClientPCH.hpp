@@ -9,6 +9,8 @@
 #include "SpriteComponent.hpp"
 #include "PlayerSpriteComponent.hpp"
 #include "DamagePopupComponent.hpp" 
+#include "SoundEffect.hpp"
+#include "SoundPlayer.hpp"
 #include "TextureManager.hpp"
 #include "FontManager.hpp"
 #include "RenderManager.hpp"

@@ -5,6 +5,10 @@ BulletClient::BulletClient()
 	SetScale(kBulletSpriteScale);
 	mSpriteComponent.reset(new SpriteComponent(this));
 	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("bullet"));
+
+	//play shoot sound when created - not ideal but we can only call sound player from client project 
+	SoundPlayer::sInstance->Play(SoundEffect::kBulletFire,
+		GetLocation().mX, GetLocation().mY);
 }
 
 void BulletClient::Read(InputMemoryBitStream& inInputStream)

@@ -10,6 +10,7 @@ bool Client::StaticInit()
 	FontManager::StaticInit();
 	TextureManager::StaticInit();
 	RenderManager::StaticInit();
+	SoundPlayer::StaticInit();
 
 
 	HUD::StaticInit();
@@ -48,6 +49,8 @@ void Client::DoFrame()
 	Engine::DoFrame();
 
 	NetworkManagerClient::sInstance->ProcessIncomingPackets();
+
+	SoundPlayer::sInstance->RemoveStoppedSounds();
 
 	RenderManager::sInstance->Render();
 

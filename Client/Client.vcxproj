@@ -149,6 +149,8 @@
     <ClInclude Include="RenderManager.hpp" />
     <ClInclude Include="ReplicationManagerClient.hpp" />
     <ClInclude Include="SocketWrapperClientPCH.hpp" />
+    <ClInclude Include="SoundEffect.hpp" />
+    <ClInclude Include="SoundPlayer.hpp" />
     <ClInclude Include="SpriteComponent.hpp" />
     <ClInclude Include="TankClient.hpp" />
     <ClInclude Include="TextureManager.hpp" />
@@ -174,6 +176,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SocketWrapperClientPCH.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SocketWrapperClientPCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="TankClient.cpp" />
     <ClCompile Include="TextureManager.cpp" />

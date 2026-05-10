@@ -24,6 +24,9 @@ void TankClient::HandleDying()
 {
 	Tank::HandleDying();
 
+	SoundPlayer::sInstance->Play(SoundEffect::kExplosion,
+		GetLocation().mX, GetLocation().mY);
+
 	// If this is our local tank, update HUD
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
 	{
@@ -202,11 +205,15 @@ void TankClient::Read(InputMemoryBitStream& inInputStream)
 		inInputStream.Read(health, 8);
 		LOG("Client tank %d health=%d", GetPlayerId(), health);
 
-		//**** UI pop up logic 
+		//**** UI pop up logic when getting hit 
 		int newHealth = static_cast<int>(health);
 		if (newHealth < mLastKnownHealth)
 		{
 			int damage = mLastKnownHealth - newHealth; //calculate the damage(could also just use the constant)
+
+			SoundPlayer::sInstance->Play(SoundEffect::kTankHit,
+				GetLocation().mX, GetLocation().mY);
+
 			auto font = FontManager::sInstance->GetFont("carlito");
 			if (font)
 			{
