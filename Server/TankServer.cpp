@@ -3,7 +3,7 @@
 TankServer::TankServer() :
 	mControlType(ETCT_Human),
 	mTimeOfNextShot(0.f),
-	mTimeBetweenShots(0.15f), 
+	mTimeBetweenShots(1.2f), 
 	mTurretDesiredRotation(0.f)
 {
 }
@@ -92,7 +92,7 @@ void TankServer::HandleShooting()
 			bullet->SetLocation(firePos);
 			const float kBulletSpriteOffset = 90.f;
 			bullet->SetRotation(GetTurretRotation() + kBulletSpriteOffset);
-			bullet->SetVelocity(fireDir * 300.f);
+			bullet->SetVelocity(fireDir * BULLET_SPEED); //bullet speed here 
 		}
 	}
 }

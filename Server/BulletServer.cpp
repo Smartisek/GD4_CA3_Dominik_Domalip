@@ -2,7 +2,7 @@
 
 BulletServer::BulletServer()
 {
-	mTimeToDie = Timing::sInstance.GetFrameStartTime() + 2.f; //bullet lives for 2 secs 
+	mTimeToDie = Timing::sInstance.GetFrameStartTime() + BULLET_LIFETIME; //bullet lives for 2 secs 
 }
 
 void BulletServer::HandleDying()

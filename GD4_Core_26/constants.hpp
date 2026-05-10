@@ -10,7 +10,7 @@ constexpr float kTankCollisionRadius = 40.f;
 constexpr float kBulletCollisionRadius = 5.f;
 
 //bullet constants
-constexpr float BULLET_SPEED = 3000.f;
+constexpr float BULLET_SPEED = 450.f;
 constexpr float BULLET_LIFETIME = 10.f;
 constexpr unsigned int kBulletDamage = 10;
 
