@@ -55,6 +55,8 @@ void HUD::RenderAmmo()
 
 void HUD::RenderBandWidth()
 {
+	if (!NetworkManagerClient::sInstance) return;
+
 	string bandwidth = StringUtils::Sprintf("In %d  Bps, Out %d Bps",
 		static_cast<int>(NetworkManagerClient::sInstance->GetBytesReceivedPerSecond().GetValue()),
 		static_cast<int>(NetworkManagerClient::sInstance->GetBytesSentPerSecond().GetValue()));
@@ -63,6 +65,8 @@ void HUD::RenderBandWidth()
 
 void HUD::RenderRoundTripTime()
 {
+	if (!NetworkManagerClient::sInstance) return;
+
 	float rttMS = NetworkManagerClient::sInstance->GetAvgRoundTripTime().GetValue() * 1000.f;
 
 	string roundTripTime = StringUtils::Sprintf("RTT %d ms", (int)rttMS);

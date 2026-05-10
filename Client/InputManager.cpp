@@ -64,6 +64,7 @@ void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 	case sf::Keyboard::Add:
 	case sf::Keyboard::Equal:
 	{
+		if (!NetworkManagerClient::sInstance) return;
 		float latency = NetworkManagerClient::sInstance->GetSimulatedLatency();
 		latency += 0.1f;
 		if (latency > 0.5f)
@@ -75,6 +76,7 @@ void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 	}
 	case sf::Keyboard::Subtract:
 	{
+		if (!NetworkManagerClient::sInstance) return;
 		float latency = NetworkManagerClient::sInstance->GetSimulatedLatency();
 		latency -= 0.1f;
 		if (latency < 0.0f)
@@ -123,6 +125,8 @@ void InputManager::Update()
 	//get mouse position in worlds space
 	sf::Vector2f mousePos = WindowManager::sInstance->mapPixelToCoords(
 		sf::Mouse::getPosition(*WindowManager::sInstance));
+
+	if (!NetworkManagerClient::sInstance) return; //not connected to server yet 
 
 	//get local tank positoin
 	Vector3 tankPos = Vector3::Zero;
