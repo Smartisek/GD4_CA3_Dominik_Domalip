@@ -85,10 +85,16 @@ void RenderManager::RenderComponents()
 
 void RenderManager::Render()
 {
-	//
-	// Clear the back buffer
-	//
-	WindowManager::sInstance->clear(sf::Color(100, 149, 237, 255));
+	//game background 
+	auto bgTexture = TextureManager::sInstance->GetTexture("worldBackground");
+	sf::Sprite bgSprite;
+	bgSprite.setTexture(*bgTexture);
+	sf::Vector2u texSize = bgTexture->getSize();
+	bgSprite.setScale(
+		(float)kWindowWidth / texSize.x,
+		(float)kWindowHeight / texSize.y
+	);
+	WindowManager::sInstance->draw(bgSprite);
 
 	RenderManager::sInstance->RenderComponents();
 	//draw damage popups for every tank 

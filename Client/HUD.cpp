@@ -7,8 +7,9 @@ HUD::HUD() :
 	mScoreBoardOrigin(50.f, 60.f, 0.0f),
 	mBandwidthOrigin(50.f, 10.f, 0.0f),
 	mRoundTripTimeOrigin(580.f, 10.f, 0.0f),
+	mAmmoOffset(kWindowWidth - 300.f, 70.f, 0.0f),
 	mScoreOffset(0.f, 50.f, 0.0f),
-	mHealthOffset(1000, 10.f, 0.0f),
+	mHealthOffset(kWindowWidth - 300.f, 10.f, 0.0f),
 	mHealth(0),
 	mAmmo(0)
 {
@@ -100,7 +101,10 @@ void HUD::RenderText(const string& inStr, const Vector3& origin, const Vector3& 
 {
 	sf::Text text;
 	text.setString(inStr);
-	text.setFillColor(sf::Color(inColor.mX, inColor.mY, inColor.mZ, 255));
+	text.setFillColor(sf::Color::White);
+	text.setOutlineColor(sf::Color::Black);    
+	text.setOutlineThickness(2.f);            
+	text.setStyle(sf::Text::Bold);             
 	text.setCharacterSize(50);
 	text.setPosition(origin.mX, origin.mY);
 	text.setFont(*FontManager::sInstance->GetFont("carlito"));

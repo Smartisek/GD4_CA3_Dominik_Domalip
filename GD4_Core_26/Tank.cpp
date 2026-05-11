@@ -1,7 +1,7 @@
 #include "SocketWrapperPCH.hpp"
 
-const float WORLD_HEIGHT = 720.f;
-const float WORLD_WIDTH = 1280.f;
+const float WORLD_HEIGHT = kWindowHeight;
+const float WORLD_WIDTH = kWindowWidth;
 
 Tank::Tank() :
 	GameObject(),
@@ -16,7 +16,7 @@ Tank::Tank() :
 	mPlayerId(0),
 	mIsShooting(false),
 	mHealth(kMaxTankHealth),
-	mAmmo(50)
+	mAmmo(10)
 {
 	SetCollisionRadius(kTankCollisionRadius); //adjust later***
 }

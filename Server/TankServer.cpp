@@ -93,6 +93,7 @@ void TankServer::HandleShooting()
 			const float kBulletSpriteOffset = 90.f;
 			bullet->SetRotation(GetTurretRotation() + kBulletSpriteOffset);
 			bullet->SetVelocity(fireDir * BULLET_SPEED); //bullet speed here 
+			mAmmo--;
 		}
 	}
 }
