@@ -272,6 +272,18 @@ uint32_t Tank::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyStat
 		inOutputStream.Write((bool)false);
 	}
 
+	//write the name of the player controlling the tank
+	if (inDirtyState & ETRS_Name)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(GetPlayerName());
+		writtenState |= ETRS_Name;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
 	//return the bit flag of what we actually wrote, so the client can update its state based on that
 	return writtenState;
 }

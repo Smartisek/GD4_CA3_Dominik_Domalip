@@ -18,6 +18,12 @@ TankClient::TankClient() :
 	SetScale(kTurretSpriteScale);
 	mTurretSpriteComponent.reset(new TurretSpriteComponent(this));
 	mTurretSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("turret"));
+
+	auto font = FontManager::sInstance->GetFont("carlito");
+	mNameTag.setFont(*font);
+	mNameTag.setCharacterSize(16);
+	mNameTag.setOutlineColor(sf::Color::Black);
+	mNameTag.setOutlineThickness(1.5f);
 }
 
 void TankClient::HandleDying()
@@ -105,6 +111,39 @@ void TankClient::DrawDamagePopups(sf::RenderWindow& window)
 	{
 		popup.get()->Draw(*WindowManager::sInstance);
 	}
+}
+
+void TankClient::DrawNameTag(sf::RenderWindow& window)
+{
+	bool isLocal = NetworkManagerClient::sInstance &&
+		GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId();
+
+	std::string name = GetPlayerName();
+	if (name.empty()) return;
+
+	mNameTag.setString(name);
+	mNameTag.setFillColor(isLocal ? sf::Color(0, 255, 100) : sf::Color::White);
+
+	sf::FloatRect bounds = mNameTag.getLocalBounds();
+	mNameTag.setOrigin(bounds.left + bounds.width / 2.f, bounds.top);
+
+	//use same rotation math as HealthBarSpriteComponent to stay fixed under health bar
+	Vector3 pos = GetLocation();
+	float rot = GetRotation();
+	float rotRad = Math::ToRadians(rot);
+	float cosR = cosf(rotRad);
+	float sinR = sinf(rotRad);
+
+	float localX = 0.f;  //centred horizontally on tank
+	float localY = kHealthBarOffset + kHealthBarHeight + 18.f;  //just below health bar
+
+	float worldX = pos.mX + (localX * cosR - localY * sinR);
+	float worldY = pos.mY + (localX * sinR + localY * cosR);
+
+	mNameTag.setPosition(worldX, worldY);
+	mNameTag.setRotation(rot);  //rotate the text with the tank
+
+	window.draw(mNameTag);
 }
 
 void TankClient::UpdateTurretAim()
@@ -243,6 +282,16 @@ void TankClient::Read(InputMemoryBitStream& inInputStream)
 		inInputStream.Read(ammo, 8);
 		SetAmmo(ammo);
 		readState |= ETRS_Ammo;
+	}
+
+	//read name 
+	inInputStream.Read(stateBit);
+	if (stateBit)
+	{
+		string name;
+		inInputStream.Read(name);
+		SetPlayerName(name);
+		readState |= ETRS_Name;
 	}
 
 	// Apply client-side prediction

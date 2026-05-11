@@ -96,7 +96,11 @@ void RenderManager::Render()
 	{
 		TankClient* tank = static_cast<TankClient*>(go->GetAsTank());
 		if (tank)
+		{
 			tank->DrawDamagePopups(*WindowManager::sInstance);
+			tank->DrawNameTag(*WindowManager::sInstance);
+		}
+			
 	}
 
 	HUD::sInstance->Render();

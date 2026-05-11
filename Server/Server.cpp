@@ -105,9 +105,16 @@ void Server::SpawnTankForPlayer(int inPlayerId)
 	tank->SetPlayerId(inPlayerId);
 	//gotta pick a better spawn location than this...
 	tank->SetLocation(Vector3(600.f - static_cast<float>(inPlayerId), 400.f, 0.f));
+	//set the players name he chose
+	ClientProxyPtr clientProxy = NetworkManagerServer::sInstance->GetClientProxy(inPlayerId);
+	if (clientProxy)
+	{
+		tank->SetPlayerName(clientProxy->GetName());
+	}
 
 	//make sure to send client its health and ammo info so it can update the HUD right away
 	NetworkManagerServer::sInstance->SetStateDirty(tank->GetNetworkId(), Tank::ETRS_Health);
+	NetworkManagerServer::sInstance->SetStateDirty(tank->GetNetworkId(), Tank::ETRS_Name);
 }
 
 void Server::HandleLostClient(ClientProxyPtr inClientProxy)

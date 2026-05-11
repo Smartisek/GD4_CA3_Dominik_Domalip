@@ -19,6 +19,7 @@ public:
 	virtual void Update() override;
 	virtual void HandleDying() override;
 	void DrawDamagePopups(sf::RenderWindow& window);
+	void DrawNameTag(sf::RenderWindow& window);
 
 	virtual void Read(InputMemoryBitStream& inInputStream) override;
 
@@ -45,5 +46,7 @@ private:
 	float mHitFlashTimer;             // red flash duration remaining
 	static constexpr float kFlashDuration = 0.18f;
 	std::vector<shared_ptr<DamagePopupComponent>> mDamagePopups;
+
+	sf::Text mNameTag;
 
 };

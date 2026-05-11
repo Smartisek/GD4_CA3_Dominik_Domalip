@@ -25,6 +25,7 @@ public:
 	float									GetRoundTripTime()		const { return mAvgRoundTripTime.GetValue(); }
 	int		GetPlayerId()											const { return mPlayerId; }
 	float	GetLastMoveProcessedByServerTimestamp()					const { return mLastMoveProcessedByServerTimestamp; }
+	const string& GetName() const { return mName; }
 private:
 	NetworkManagerClient();
 	void Init(const SocketAddress& inServerAddress, const string& inName);

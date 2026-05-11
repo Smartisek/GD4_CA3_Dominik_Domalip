@@ -16,9 +16,10 @@ public:
 		ETRS_PlayerId = 1 << 3, // bit 3 for player id
 		ETRS_Health = 1 << 4, // fourth bit for heatlth
 		ETRS_Ammo = 1 << 5, // bit 5 for ammo 
+		ETRS_Name = 1 << 6, // bit 6 for name tag
 
 		//this is all the bitstates combined, so we can easily send the entire state if we want to
-		ETRS_AllState = ETRS_Pos | ETRS_TurretRotation | ETRS_Color | ETRS_PlayerId | ETRS_Health | ETRS_Ammo
+		ETRS_AllState = ETRS_Pos | ETRS_TurretRotation | ETRS_Color | ETRS_PlayerId | ETRS_Health | ETRS_Ammo | ETRS_Name
 	};
 
 	
@@ -59,6 +60,9 @@ public:
 	//firing
 	bool CanShoot() const { return mAmmo > 0 && mHealth > 0; }
 
+	const string& GetPlayerName() const { return mPlayerName; }
+	void          SetPlayerName(const string& inName) { mPlayerName = inName; }
+
 	// replication 
 	virtual uint32_t Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const override;
 
@@ -84,6 +88,7 @@ private:
 
 	//state variables 
 	uint32_t	mPlayerId;
+	string mPlayerName;
 protected:
 	bool mIsShooting;
 	float		mLastMoveTimestamp;

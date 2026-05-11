@@ -89,6 +89,7 @@ void HUD::RenderScoreBoard()
 
 void HUD::RenderCursor()
 {
+	WindowManager::sInstance->setMouseCursorVisible(false);
 	sf::Vector2i mousePixel = sf::Mouse::getPosition(*WindowManager::sInstance);
 	sf::Vector2f mouseWorld = WindowManager::sInstance->mapPixelToCoords(mousePixel);
 	mCursorSprite.setPosition(mouseWorld.x, mouseWorld.y);
