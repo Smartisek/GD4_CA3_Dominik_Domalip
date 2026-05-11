@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AmmoPickupServer.cpp" />
     <ClCompile Include="BulletServer.cpp" />
     <ClCompile Include="ClientProxy.cpp" />
     <ClCompile Include="NetworkManagerServer.cpp" />
@@ -158,6 +159,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmmoPickupServer.hpp" />
     <ClInclude Include="BulletServer.hpp" />
     <ClInclude Include="ClientProxy.hpp" />
     <ClInclude Include="NetworkManagerServer.hpp" />

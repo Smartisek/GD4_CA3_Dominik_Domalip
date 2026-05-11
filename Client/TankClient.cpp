@@ -280,6 +280,25 @@ void TankClient::Read(InputMemoryBitStream& inInputStream)
 	{
 		uint8_t ammo;
 		inInputStream.Read(ammo, 8);
+
+		int newAmmo = static_cast<int>(ammo);
+		if (newAmmo > static_cast<int>(GetAmmo()))
+		{
+			int gained = newAmmo - static_cast<int>(GetAmmo());
+			auto font = FontManager::sInstance->GetFont("carlito");
+			if (font)
+			{
+				std::string msg = "+" + std::to_string(gained) + " ammo";
+				mDamagePopups.push_back(make_shared<DamagePopupComponent>(
+					this,
+					msg,
+					GetLocation().mX,
+					GetLocation().mY,
+					sf::Color(0, 220, 100, 255)
+				));
+			}
+		}
+
 		SetAmmo(ammo);
 		readState |= ETRS_Ammo;
 	}

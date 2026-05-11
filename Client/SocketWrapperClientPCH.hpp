@@ -18,6 +18,7 @@
 
 #include "TankClient.hpp"
 #include "BulletClient.hpp"
+#include "AmmoPickupClient.hpp"
 
 #include "HUD.hpp"
 

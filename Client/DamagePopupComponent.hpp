@@ -1,7 +1,7 @@
 class DamagePopupComponent : public SpriteComponent
 {
 public:
-    DamagePopupComponent(GameObject* inGameObject, const std::string& inText, float inX, float inY);
+    DamagePopupComponent(GameObject* inGameObject, const std::string& inText, float inX, float inY, sf::Color inColor = sf::Color(255, 60, 60, 255));
 
     virtual sf::Sprite& GetSprite() override;
 

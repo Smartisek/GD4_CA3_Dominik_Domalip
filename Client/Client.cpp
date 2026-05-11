@@ -27,6 +27,7 @@ Client::Client()
 {
 	GameObjectRegistry::sInstance->RegisterCreationFunction('TANK', TankClient::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('BLLT', BulletClient::StaticCreate);
+	GameObjectRegistry::sInstance->RegisterCreationFunction('AMMO', AmmoPickupClient::StaticCreate);
 	//NetworkManagerClient::StaticInit(*serverAddress, name);
 
 	//NetworkManagerClient::sInstance->SetSimulatedLatency(0.0f);

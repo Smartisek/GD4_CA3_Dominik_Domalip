@@ -13,6 +13,7 @@ Server::Server()
 
 	GameObjectRegistry::sInstance->RegisterCreationFunction('TANK', TankServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('BLLT', BulletServer::StaticCreate);
+	GameObjectRegistry::sInstance->RegisterCreationFunction('AMMO', AmmoPickupServer::StaticCreate);
 
 	InitNetworkManager();
 
@@ -73,6 +74,30 @@ void Server::SetupWorld()
 
 	//spawn more random mice!
 	//CreateRandomMice(10);
+	SpawnAmmoPickups(3);
+}
+
+void Server::SpawnAmmoPickups(int inCount)
+{
+	Vector3 spawnMin(100.f, 100.f, 0.f);
+	Vector3 spawnMax(1180.f, 620.f, 0.f);
+
+	for (int i = 0; i < inCount; ++i)
+	{
+		GameObjectPtr go = GameObjectRegistry::sInstance->CreateGameObject('AMMO');
+		go->SetLocation(Math::GetRandomVector(spawnMin, spawnMax));
+	}
+}
+
+int Server::CountAmmoPickups()
+{
+	int count = 0;
+	for (const auto& go : World::sInstance->GetGameObjects())
+	{
+		if (go->GetClassId() == AmmoPickup::kClassId)
+			count++;
+	}
+	return count;
 }
 
 void Server::DoFrame()
@@ -81,7 +106,13 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->CheckForDisconnects();
 
-	NetworkManagerServer::sInstance->RespawnCats();
+	NetworkManagerServer::sInstance->RespawnPickups();
+
+	int current = CountAmmoPickups();
+	if (current < kMaxAmmoPickups)
+	{
+		SpawnAmmoPickups(kMaxAmmoPickups - current);
+	}
 
 	Engine::DoFrame();
 

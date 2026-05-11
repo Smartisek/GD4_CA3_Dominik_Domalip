@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AmmoPickupClient.hpp" />
     <ClInclude Include="BulletClient.hpp" />
     <ClInclude Include="Client.hpp" />
     <ClInclude Include="DamagePopupComponent.hpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="WindowManager.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AmmoPickupClient.cpp" />
     <ClCompile Include="BulletClient.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientMain.cpp" />

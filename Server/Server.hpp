@@ -21,5 +21,9 @@ private:
 	bool	InitNetworkManager();
 	void	SetupWorld();
 
+	void SpawnAmmoPickups(int inCount);
+	int  CountAmmoPickups();
+	static const int kMaxAmmoPickups = 5;
+
 };
 

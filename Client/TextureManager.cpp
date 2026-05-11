@@ -15,6 +15,8 @@ TextureManager::TextureManager()
 	CacheTexture("cursor", "../Assets/Crosshair.png");
 	CacheTexture("menuBackground", "../Assets/TitleScreen.png");
 	CacheTexture("worldBackground", "../Assets/Background.png");
+	CacheTexture("ammoPickup", "../Assets/Ammo.png");
+
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)

@@ -9,3 +9,4 @@
 
 #include "TankServer.hpp"
 #include "BulletServer.hpp"
+#include "AmmoPickupServer.hpp"

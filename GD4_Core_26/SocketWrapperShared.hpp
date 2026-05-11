@@ -87,6 +87,7 @@ class Bullet;
 #include "World.hpp"
 #include "Timing.hpp"
 #include "Bullet.hpp"
+#include "AmmoPickup.hpp"
 #include "ScoreBoardManager.hpp"
 
 #include "MemoryStream.hpp"

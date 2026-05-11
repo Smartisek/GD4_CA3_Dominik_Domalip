@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AckRange.cpp" />
+    <ClCompile Include="AmmoPickup.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="DeliveryNotificationManager.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AckRange.hpp" />
+    <ClInclude Include="AmmoPickup.hpp" />
     <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="ByteSwap.hpp" />
     <ClInclude Include="choice.hpp" />

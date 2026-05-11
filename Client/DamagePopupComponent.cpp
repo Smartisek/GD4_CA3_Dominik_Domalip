@@ -1,6 +1,6 @@
 #include "SocketWrapperClientPCH.hpp"
 
-DamagePopupComponent::DamagePopupComponent(GameObject* inGameObject, const std::string& inText, float inX, float inY)
+DamagePopupComponent::DamagePopupComponent(GameObject* inGameObject, const std::string& inText, float inX, float inY, sf::Color inColor)
     : SpriteComponent(inGameObject),
     mPosition(inX, inY - 50.f)
 {
@@ -9,7 +9,7 @@ DamagePopupComponent::DamagePopupComponent(GameObject* inGameObject, const std::
     mText.setString(inText);
     mText.setCharacterSize(32);
     mText.setStyle(sf::Text::Bold);
-    mText.setFillColor(sf::Color(255, 60, 60, 255));
+    mText.setFillColor(inColor);
     mText.setOutlineColor(sf::Color::Black);
     mText.setOutlineThickness(2.f);
 
