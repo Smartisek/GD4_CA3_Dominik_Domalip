@@ -14,6 +14,8 @@ SoundPlayer::SoundPlayer()
     mSoundBuffers[SoundEffect::kTankHit].loadFromFile("../Assets/Sound/bulletHit.wav");
     mSoundBuffers[SoundEffect::kBulletFire].loadFromFile("../Assets/Sound/tankBullet.flac");
     mSoundBuffers[SoundEffect::kExplosion].loadFromFile("../Assets/Sound/explosion.wav");
+    mSoundBuffers[SoundEffect::kAmmoPickup].loadFromFile("../Assets/Sound/pickup.wav");
+
 
     sf::Listener::setDirection({ 0.f, 0.f, -1.f });
 }

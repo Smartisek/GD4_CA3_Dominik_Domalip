@@ -24,6 +24,7 @@ private:
 	void SpawnAmmoPickups(int inCount);
 	int  CountAmmoPickups();
 	static const int kMaxAmmoPickups = 5;
+	float mPickupSpawnTimer = 15.f;
 
 };
 

@@ -297,6 +297,8 @@ void TankClient::Read(InputMemoryBitStream& inInputStream)
 					sf::Color(0, 220, 100, 255)
 				));
 			}
+			SoundPlayer::sInstance->Play(SoundEffect::kAmmoPickup,
+				GetLocation().mX, GetLocation().mY);
 		}
 
 		SetAmmo(ammo);

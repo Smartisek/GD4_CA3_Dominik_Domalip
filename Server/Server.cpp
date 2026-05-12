@@ -43,28 +43,6 @@ bool Server::InitNetworkManager()
 	return NetworkManagerServer::StaticInit(port);
 }
 
-//possible pickups???**************************
-//namespace
-//{
-//
-//	void CreateRandomMice(int inMouseCount)
-//	{
-//		Vector3 mouseMin(100.f, 100.f, 0.f);
-//		Vector3 mouseMax(1180.f, 620.f, 0.f);
-//		GameObjectPtr go;
-//
-//		//make a mouse somewhere- where will these come from?
-//		for (int i = 0; i < inMouseCount; ++i)
-//		{
-//			go = GameObjectRegistry::sInstance->CreateGameObject('MOUS');
-//			Vector3 mouseLocation = RoboMath::GetRandomVector(mouseMin, mouseMax);
-//			go->SetLocation(mouseLocation);
-//		}
-//	}
-//
-//
-//}
-
 
 void Server::SetupWorld()
 {
@@ -108,10 +86,15 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->RespawnPickups();
 
-	int current = CountAmmoPickups();
-	if (current < kMaxAmmoPickups)
+	mPickupSpawnTimer -= Timing::sInstance.GetDeltaTime();
+	if (mPickupSpawnTimer <= 0.f)
 	{
-		SpawnAmmoPickups(kMaxAmmoPickups - current);
+		mPickupSpawnTimer = 15.f;  //reset timer
+		int current = CountAmmoPickups();
+		if (current < kMaxAmmoPickups)
+		{
+			SpawnAmmoPickups(kMaxAmmoPickups - current);
+		}
 	}
 
 	Engine::DoFrame();
