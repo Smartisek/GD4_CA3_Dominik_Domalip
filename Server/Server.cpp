@@ -79,8 +79,8 @@ void Server::SetupWorld()
 
 void Server::SpawnAmmoPickups(int inCount)
 {
-	Vector3 spawnMin(100.f, 100.f, 0.f);
-	Vector3 spawnMax(1180.f, 620.f, 0.f);
+	Vector3 spawnMin(30.f, 30.f, 0.f);
+	Vector3 spawnMax(static_cast<float>(kWindowWidth), static_cast<float>(kWindowHeight), 0.f);
 
 	for (int i = 0; i < inCount; ++i)
 	{
