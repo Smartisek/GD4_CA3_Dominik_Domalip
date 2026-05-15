@@ -24,15 +24,18 @@ void AmmoPickupServer::Update()
 
 		if (distSq < pickupRadius * pickupRadius)
 		{
-			int newAmmo = std::min(tank->GetAmmo() + GetAmmoAmount(), kMaxTankAmmo);  //clamp the ammo 
-			tank->SetAmmo(newAmmo);
-			NetworkManagerServer::sInstance->SetStateDirty(tank->GetNetworkId(), Tank::ETRS_Ammo);
+			if (tank->GetAmmo() < kMaxTankAmmo)
+			{
+				int newAmmo = std::min(tank->GetAmmo() + GetAmmoAmount(), kMaxTankAmmo);  //clamp the ammo 
+				tank->SetAmmo(newAmmo);
+				NetworkManagerServer::sInstance->SetStateDirty(tank->GetNetworkId(), Tank::ETRS_Ammo);
 
-			//deactivate the pickup and remove it from the world
-			SetActive(false);
-			SetDoesWantToDie(true);
-			NetworkManagerServer::sInstance->UnregisterGameObject(this);
-			return;
+				//deactivate the pickup and remove it from the world
+				SetActive(false);
+				SetDoesWantToDie(true);
+				NetworkManagerServer::sInstance->UnregisterGameObject(this);
+				return;
+			}
 		}
 	}
 }
