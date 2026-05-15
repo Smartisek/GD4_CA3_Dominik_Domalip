@@ -86,14 +86,25 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->RespawnPickups();
 
-	mPickupSpawnTimer -= Timing::sInstance.GetDeltaTime();
-	if (mPickupSpawnTimer <= 0.f)
+	if (!mGameOver && mGameStarted)
 	{
-		mPickupSpawnTimer = 15.f;  //reset timer
-		int current = CountAmmoPickups();
-		if (current < kMaxAmmoPickups)
+		//when the timer runs out, end the game
+		mGameTimer -= Timing::sInstance.GetDeltaTime();
+		if (mGameTimer <= 0.f)
 		{
-			SpawnAmmoPickups(kMaxAmmoPickups - current);
+			mGameTimer = 0.f;
+			mGameOver = true;
+			HandleGameOver();
+		}
+
+		//pickup respawn
+		mPickupSpawnTimer -= Timing::sInstance.GetDeltaTime();
+		if (mPickupSpawnTimer <= 0.f)
+		{
+			mPickupSpawnTimer = 15.f; //reset timer
+			int current = CountAmmoPickups();
+			if (current < kMaxAmmoPickups)
+				SpawnAmmoPickups(kMaxAmmoPickups - current);
 		}
 	}
 
@@ -103,6 +114,11 @@ void Server::DoFrame()
 
 }
 
+void Server::HandleGameOver()
+{
+	NetworkManagerServer::sInstance->SendGameOverPacket();
+}
+
 void Server::HandleNewClient(ClientProxyPtr inClientProxy)
 {
 
@@ -110,6 +126,13 @@ void Server::HandleNewClient(ClientProxyPtr inClientProxy)
 
 	ScoreBoardManager::sInstance->AddEntry(playerId, inClientProxy->GetName());
 	SpawnTankForPlayer(playerId);
+
+	//when first player joins, start timer 
+	if (!mGameStarted)
+	{
+		mGameStarted = true;
+		mGameTimer = kGameTimer;  // Reset to full duration
+	}
 }
 
 void Server::SpawnTankForPlayer(int inPlayerId)
@@ -143,6 +166,7 @@ void Server::HandleLostClient(ClientProxyPtr inClientProxy)
 	{
 		tank->SetDoesWantToDie(true);
 	}
+
 }
 
 TankPtr Server::GetTankForPlayer(int inPlayerId)

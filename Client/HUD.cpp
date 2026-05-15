@@ -34,6 +34,7 @@ void HUD::Render()
 	RenderScoreBoard();
 	RenderHealth();
 	RenderAmmo();
+	RenderTimer();
 }
 
 void HUD::RenderHealth()
@@ -111,3 +112,17 @@ void HUD::RenderText(const string& inStr, const Vector3& origin, const Vector3& 
 	WindowManager::sInstance->draw(text);
 }
 
+
+
+void HUD::RenderTimer()
+{
+	int seconds = (int)mGameTimer;
+	int mins = seconds / 60;
+	int secs = seconds % 60;
+	char buf[16];
+	snprintf(buf, sizeof(buf), "%d:%02d", mins, secs);
+
+	Vector3 timerPos(kWindowWidth / 2.f - 40.f, 10.f, 0.f);  // Adjust position as needed
+	Vector3 timerColor = (mins == 0 && secs <= 30) ? Colors::Red : Colors::White;
+	RenderText(buf, timerPos, timerColor);
+}

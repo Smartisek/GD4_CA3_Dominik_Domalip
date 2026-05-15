@@ -27,6 +27,7 @@ public:
 	void			SetStateDirty(int inNetworkId, uint32_t inDirtyState);
 
 	void			RespawnPickups();
+	void            SendGameOverPacket();
 
 	ClientProxyPtr	GetClientProxy(int inPlayerId) const;
 

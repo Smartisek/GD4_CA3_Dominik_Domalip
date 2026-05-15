@@ -11,6 +11,7 @@ public:
 
 	void SetPlayerHealth(int inHealth) { mHealth = inHealth; }
 	void SetPlayerAmmo(int inAmmo) { mAmmo = inAmmo; }
+	void SetGameTimer(float inTimer) { mGameTimer = inTimer; }
 
 private:
 
@@ -22,6 +23,7 @@ private:
 	void    RenderCursor();
 	void	RenderHealth();
 	void	RenderAmmo();
+	void RenderTimer();
 	void	RenderText(const string& inStr, const Vector3& origin, const Vector3& inColor);
 
 	Vector3										mBandwidthOrigin;
@@ -33,6 +35,7 @@ private:
 	int											mHealth;
 	int											mAmmo;
 	sf::Sprite									mCursorSprite;
+	float mGameTimer = 0.f;
 };
 
 

@@ -1,4 +1,6 @@
 #include "SocketWrapperClientPCH.hpp"
+Client* Client::sInstance = nullptr;
+
 //menu ui cinstants 
 float cx = kWindowWidth / 2.f;   //horizontal centre
 float cy = kWindowHeight / 2.f + 250.f;  //vertical centre
@@ -19,6 +21,7 @@ bool Client::StaticInit()
 	HUD::StaticInit();
 
 	s_instance.reset(client);
+	sInstance = client;
 
 	return true;
 }
@@ -40,6 +43,12 @@ void Client::ConnectToServer(const std::string& address, const std::string& name
 	mIsConnected = true;
 }
 
+void Client::OnGameOver(InputMemoryBitStream& inInputStream)
+{
+	ScoreBoardManager::sInstance->Read(inInputStream);
+	mGameOver = true;
+}
+
 void Client::DoFrame()
 {
 	InputManager::sInstance->Update();
@@ -49,6 +58,19 @@ void Client::DoFrame()
 		RenderMenu();
 		return; //dont render anything else until were connected to server 
 	}
+	//game over call
+	if (mGameOver)
+	{
+		RenderGameOver();
+		return;
+	}
+
+	LOG("In game! mIsConnected=%d, mGameOver=%d, Timer=%.1f", mIsConnected, mGameOver, mGameTimer);
+	//reduce timer
+	mGameTimer -= Timing::sInstance.GetDeltaTime();
+	if (mGameTimer < 0.f) mGameTimer = 0.f;
+
+	HUD::sInstance->SetGameTimer(mGameTimer); //set the time to game time
 
 	Engine::DoFrame();
 
@@ -166,6 +188,57 @@ void Client::RenderMenu()
 	}
 
 	WindowManager::sInstance->setMouseCursorVisible(true);
+	WindowManager::sInstance->display();
+}
+
+void Client::RenderGameOver()
+{
+	WindowManager::sInstance->clear(sf::Color(10, 10, 30));
+	auto font = FontManager::sInstance->GetFont("carlito");
+
+	// Title
+	sf::Text title;
+	title.setFont(*font);
+	title.setString("GAME OVER");
+	title.setCharacterSize(72);
+	title.setStyle(sf::Text::Bold);
+	title.setFillColor(sf::Color(255, 200, 0));
+	title.setOutlineColor(sf::Color::Black);
+	title.setOutlineThickness(3.f);
+	sf::FloatRect tb = title.getLocalBounds();
+	title.setOrigin(tb.left + tb.width / 2.f, tb.top);
+	title.setPosition(kWindowWidth / 2.f, 80.f);
+	WindowManager::sInstance->draw(title);
+
+	//sort score descending
+	auto entries = ScoreBoardManager::sInstance->GetEntries();
+	std::sort(entries.begin(), entries.end(),
+		[](const ScoreBoardManager::Entry& a, const ScoreBoardManager::Entry& b) {
+			return a.GetScore() > b.GetScore();
+		});
+
+	float y = 220.f;
+	for (int i = 0; i < (int)entries.size(); i++)
+	{
+		const auto& entry = entries[i];
+		char buf[64];
+		snprintf(buf, sizeof(buf), "#%d  %s  -  %d kills",
+			i + 1, entry.GetPlayerName().c_str(), entry.GetScore());
+
+		sf::Text line;
+		line.setFont(*font);
+		line.setString(buf);
+		line.setCharacterSize(36);
+		line.setFillColor(i == 0 ? sf::Color(255, 215, 0) : sf::Color::White);
+		line.setOutlineColor(sf::Color::Black);
+		line.setOutlineThickness(1.5f);
+		sf::FloatRect lb = line.getLocalBounds();
+		line.setOrigin(lb.left + lb.width / 2.f, lb.top);
+		line.setPosition(kWindowWidth / 2.f, y);
+		WindowManager::sInstance->draw(line);
+		y += 60.f;
+	}
+
 	WindowManager::sInstance->display();
 }
 

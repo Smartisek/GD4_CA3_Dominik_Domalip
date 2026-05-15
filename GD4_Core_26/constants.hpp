@@ -28,3 +28,5 @@ constexpr float kHealthBarOffset = 85.f;
 constexpr int kMaxTankHealth = 100;
 constexpr int kMaxTankAmmo = 10;
 constexpr float kFlashTime = 10.f;
+
+constexpr float kGameTimer = 30.f;

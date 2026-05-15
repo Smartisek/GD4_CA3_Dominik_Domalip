@@ -22,8 +22,8 @@
 
 #include "HUD.hpp"
 
+#include "Client.hpp"
 #include "ReplicationManagerClient.hpp"
 #include "NetworkManagerClient.hpp"
 #include "TurretSpriteComponent.hpp"
 #include "HealthBarSpriteComponent.hpp"
-#include "Client.hpp"

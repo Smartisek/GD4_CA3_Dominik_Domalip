@@ -14,6 +14,7 @@ public:
 	static const uint32_t kWelcomeCC = 'WLCM'; //server welcome message to client
 	static const uint32_t kStateCC = 'STAT'; //game state updates 
 	static const uint32_t kInputCC = 'INPT'; //player input
+	static const uint32_t kGameOverCC = 'GEND'; //game end packet
 
 	static const int kMaxPacketsPerFrameCount = 10;
 

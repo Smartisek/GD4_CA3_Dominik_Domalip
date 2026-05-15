@@ -114,6 +114,10 @@ void NetworkManagerServer::SendWelcomePacket(ClientProxyPtr inClientProxy)
 	welcomePacket.Write(kWelcomeCC);
 	welcomePacket.Write(inClientProxy->GetPlayerId());
 
+	float currentGameTimer = static_cast<Server*>(Engine::s_instance.get())->GetGameTimer();
+	welcomePacket.Write(currentGameTimer);
+
+
 	LOG("Server Welcoming, new client '%s' as player %d", inClientProxy->GetName().c_str(), inClientProxy->GetPlayerId());
 
 	SendPacket(welcomePacket, inClientProxy->GetSocketAddress());
@@ -126,6 +130,17 @@ void NetworkManagerServer::RespawnPickups()
 		ClientProxyPtr clientProxy = it->second;
 
 		clientProxy->RespawnTankIfNecessary();
+	}
+}
+
+void NetworkManagerServer::SendGameOverPacket()
+{
+	for (auto& pair : mAddressToClientMap)
+	{
+		OutputMemoryBitStream packet;
+		packet.Write((uint32_t)'GEND');
+		ScoreBoardManager::sInstance->Write(packet);
+		SendPacket(packet, pair.first);
 	}
 }
 

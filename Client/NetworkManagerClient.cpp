@@ -48,6 +48,11 @@ void NetworkManagerClient::ProcessPacket(InputMemoryBitStream& inInputStream, co
 			HandleStatePacket(inInputStream);
 		}
 		break;
+	case kGameOverCC:                                   
+		Client::sInstance->OnGameOver(inInputStream);
+		break;                                          
+	default:
+		break;
 	}
 }
 
@@ -94,6 +99,12 @@ void NetworkManagerClient::HandleWelcomePacket(InputMemoryBitStream& inInputStre
 		int playerId;
 		inInputStream.Read(playerId);
 		mPlayerId = playerId;
+		//read server current game timer 
+		float serverGameTimer = 0.f;
+		inInputStream.Read(serverGameTimer);
+		//important to sync when joining later
+		Client::sInstance->SetGameTimer(serverGameTimer);
+
 		mState = NCS_Welcomed;
 		LOG("'%s' was welcomed on client as player %d", mName.c_str(), mPlayerId);
 	}
