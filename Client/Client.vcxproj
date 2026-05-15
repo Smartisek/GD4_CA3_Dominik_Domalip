@@ -145,6 +145,7 @@
     <ClInclude Include="HealthBarSpriteComponent.hpp" />
     <ClInclude Include="HUD.hpp" />
     <ClInclude Include="InputManager.hpp" />
+    <ClInclude Include="MusicManager.hpp" />
     <ClInclude Include="NetworkManagerClient.hpp" />
     <ClInclude Include="PlayerSpriteComponent.hpp" />
     <ClInclude Include="RenderManager.hpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="HealthBarSpriteComponent.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="NetworkManagerClient.cpp" />
     <ClCompile Include="PlayerSpriteComponent.cpp" />
     <ClCompile Include="RenderManager.cpp" />

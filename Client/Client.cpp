@@ -18,6 +18,7 @@ bool Client::StaticInit()
 	TextureManager::StaticInit();
 	RenderManager::StaticInit();
 	SoundPlayer::StaticInit();
+	MusicManager::StaticInit();
 	HUD::StaticInit();
 
 	s_instance.reset(client);
@@ -58,6 +59,15 @@ void Client::DoFrame()
 		RenderMenu();
 		return; //dont render anything else until were connected to server 
 	}
+
+	static bool gameStarted = false;
+	if (!gameStarted)
+	{
+		MusicManager::sInstance->StopMusic();  //stop menu music
+		MusicManager::sInstance->PlayMusic("gameMusic", true);  //loop game music
+		gameStarted = true;
+	}
+
 	//game over call
 	if (mGameOver)
 	{
@@ -86,6 +96,14 @@ void Client::DoFrame()
 // again, not ideal to have menu logic inside the client class but for a simple menu it works, for a more complex menu system I would probably make a separate class for it
 void Client::RenderMenu()
 {
+	//menu music, start only once when rendered first not every framew 
+	static bool musicStarted = false;
+	if (!musicStarted)
+	{
+		MusicManager::sInstance->PlayMusic("menuMusic", true);
+		musicStarted = true;
+	}
+
 	auto font = FontManager::sInstance->GetFont("carlito");
 
 	WindowManager::sInstance->clear(sf::Color::Black);
