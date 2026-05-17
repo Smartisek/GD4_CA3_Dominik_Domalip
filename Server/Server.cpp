@@ -38,7 +38,12 @@ int Server::Run()
 bool Server::InitNetworkManager()
 {
 	string portString = StringUtils::GetCommandLineArg(1);
-	uint16_t port = stoi(portString);
+	uint16_t port = 50000; //defaul port 
+
+	if (!portString.empty())
+	{
+		port = stoi(portString);
+	}
 
 	return NetworkManagerServer::StaticInit(port);
 }

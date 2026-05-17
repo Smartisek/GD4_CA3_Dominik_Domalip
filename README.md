@@ -16,14 +16,24 @@ For both projects I worked with tank style game, in the CA2 I was experimenting 
 
 | Aspect                    | CA2 (TCP)                                      | CA3 (UDP)                                              |
 |---------------------------|------------------------------------------------|--------------------------------------------------------|
-| **Transport**             | TCP (reliable, ordered, connection-oriented)  | UDP (unreliable, connectionless)                       |
+| **Transport**             | TCP (reliable, ordered, connection-oriented)   | UDP (unreliable, connectionless)                       |
 | **Reliability**           | Fully handled by TCP                           | Manually implemented (sequencing, acks, DeliveryNotificationManager) |
 | **Serialization**         | SFML `sf::Packet`                              | Custom bitstreams for maximum efficiency               |
 | **Replication**           | Full world state sent regularly                | Dirty-bit replication (only changed data)              |
 | **Latency**               | Higher (TCP overhead + head-of-line blocking)  | Lower – better suited for real-time games              |
 | **Connection**            | Persistent sockets                             | Address-based `ClientProxy` system                     |
+| **Architecture**          | Integrated into one project                    | Separate Server/Client + Engine inheritance            |
+| **Bandwidth Efficiency**  | Good (with `uint8_t` optimisations)            | Excellent (only dirty objects/properties)               |
 
+### What I Learned
 
+- TCP is excellent for rapid development and guaranteed delivery, especially for non-real-time features like lobbies
+- UDP offers much better latency and bandwidth efficiency for fast-paced games, but demands a lot more custom systems
+- **Dirty-bit replication** + network IDs is really superior to sending full world states every frame
+- The importance of proper client-server separation and authoritative server design
+- Debugging distributed systems is significantly harder than single-process applications
+
+**Overall**, CA3 represents a more scalable and performant solution, even though it was more difficult to implement.
 
 # Resources
 - itch.io. (2026). Crosshair Pack. [online] Available at: https://kenney-assets.itch.io/crosshair-pack?download [Accessed 15 May 2026].
@@ -45,4 +55,3 @@ For both projects I worked with tank style game, in the CA2 I was experimenting 
 - Clipart Library (2026). Illustration. [online] Clipart-library.com. Available at: https://clipart-library.com/clip-art/49-495275_bullets-clipart-sprite-bullets-sprite.htm [Accessed 20 Feb. 2026].
 - Freesound. (2022). TF_movie_Optimus_inspired_laser_sound_effect_01_2022 by Artninja. [online] Available at: https://freesound.org/people/Artninja/sounds/784935/ [Accessed 20 Feb. 2026].
 - Freesound. (2016). Launching 1 by AceOfSpadesProduc100. [online] Available at: https://freesound.org/people/AceOfSpadesProduc100/sounds/334268/ [Accessed 20 Feb. 2026].
-
